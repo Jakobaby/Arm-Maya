@@ -1,0 +1,78 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "clusters_maya_prod_sf_name": {
+            "value": null
+        },
+        "virtualMachineScaleSets_mayabe_name": {
+            "value": null
+        },
+        "virtualMachineScaleSets_mayafe_name": {
+            "value": null
+        },
+        "loadBalancers_maya_prod_sf_be_LB_name": {
+            "value": null
+        },
+        "loadBalancers_maya_prod_sf_fe_LB_name": {
+            "value": null
+        },
+        "storageAccounts_sfdiagmayaprod01_name": {
+            "value": null
+        },
+        "storageAccounts_sflogsmayaprod01_name": {
+            "value": null
+        },
+        "loadBalancers_LB_maya_prod_sf_mayabe_name": {
+            "value": null
+        },
+        "loadBalancers_LB_maya_prod_sf_mayafe_name": {
+            "value": null
+        },
+        "networkSecurityGroups_maya_prod_sfbe_nsg_name": {
+            "value": null
+        },
+        "networkSecurityGroups_maya_prod_sffe_nsg_name": {
+            "value": null
+        },
+        "publicIPAddresses_LBIP_maya_prod_sf_mayabe_name": {
+            "value": null
+        },
+        "publicIPAddresses_LBIP_maya_prod_sf_mayafe_name": {
+            "value": null
+        },
+        "vaults_maya_prod_kv_externalid": {
+            "value": null
+        },
+        "virtualNetworks_maya_prod_vnet_externalid": {
+            "value": null
+        },
+        "applicationGateways_maya_prod_waf01_externalid": {
+            "value": null
+        },
+        "disks_mayabe_mayabe_0_OsDisk_1_0d60048d5ecd4df884f3f3f0cefecc0a_externalid": {
+            "value": null
+        },
+        "disks_mayabe_mayabe_1_OsDisk_1_6db65544b895443cb4d48ba434b2cca7_externalid": {
+            "value": null
+        },
+        "disks_mayabe_mayabe_2_OsDisk_1_52d8124805b64a01adb7b6a2a712eefb_externalid": {
+            "value": null
+        },
+        "disks_mayabe_mayabe_3_OsDisk_1_4446e8254d3f426884af4c6f92ab77fc_externalid": {
+            "value": null
+        },
+        "disks_mayabe_mayabe_4_OsDisk_1_2a482d21f3dc46abb5a35af723124b2a_externalid": {
+            "value": null
+        },
+        "disks_mayafe_mayafe_0_OsDisk_1_517cdb9ef3574ff78354a21e6df64d56_externalid": {
+            "value": null
+        },
+        "disks_mayafe_mayafe_1_OsDisk_1_1cf82ec0ea904eb183197ecec703cdc4_externalid": {
+            "value": null
+        },
+        "disks_mayafe_mayafe_2_OsDisk_1_95a05c92bbb041148327ed5325b07f8f_externalid": {
+            "value": null
+        }
+    }
+}

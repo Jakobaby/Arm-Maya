@@ -1,0 +1,3423 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "clusters_maya_prod_sf_name": {
+            "defaultValue": "maya-prod-sf",
+            "type": "String"
+        },
+        "virtualMachineScaleSets_mayabe_name": {
+            "defaultValue": "mayabe",
+            "type": "String"
+        },
+        "virtualMachineScaleSets_mayafe_name": {
+            "defaultValue": "mayafe",
+            "type": "String"
+        },
+        "loadBalancers_maya_prod_sf_be_LB_name": {
+            "defaultValue": "maya-prod-sf-be-LB",
+            "type": "String"
+        },
+        "loadBalancers_maya_prod_sf_fe_LB_name": {
+            "defaultValue": "maya-prod-sf-fe-LB",
+            "type": "String"
+        },
+        "storageAccounts_sfdiagmayaprod01_name": {
+            "defaultValue": "sfdiagmayaprod01",
+            "type": "String"
+        },
+        "storageAccounts_sflogsmayaprod01_name": {
+            "defaultValue": "sflogsmayaprod01",
+            "type": "String"
+        },
+        "loadBalancers_LB_maya_prod_sf_mayabe_name": {
+            "defaultValue": "LB-maya-prod-sf-mayabe",
+            "type": "String"
+        },
+        "loadBalancers_LB_maya_prod_sf_mayafe_name": {
+            "defaultValue": "LB-maya-prod-sf-mayafe",
+            "type": "String"
+        },
+        "networkSecurityGroups_maya_prod_sfbe_nsg_name": {
+            "defaultValue": "maya-prod-sfbe-nsg",
+            "type": "String"
+        },
+        "networkSecurityGroups_maya_prod_sffe_nsg_name": {
+            "defaultValue": "maya-prod-sffe-nsg",
+            "type": "String"
+        },
+        "publicIPAddresses_LBIP_maya_prod_sf_mayabe_name": {
+            "defaultValue": "LBIP-maya-prod-sf-mayabe",
+            "type": "String"
+        },
+        "publicIPAddresses_LBIP_maya_prod_sf_mayafe_name": {
+            "defaultValue": "LBIP-maya-prod-sf-mayafe",
+            "type": "String"
+        },
+        "vaults_maya_prod_kv_externalid": {
+            "defaultValue": "/subscriptions/a400b5b3-0dea-4445-84d1-e6dba8b31ca9/resourceGroups/maya-prod-se-rg/providers/Microsoft.KeyVault/vaults/maya-prod-kv",
+            "type": "String"
+        },
+        "virtualNetworks_maya_prod_vnet_externalid": {
+            "defaultValue": "/subscriptions/a400b5b3-0dea-4445-84d1-e6dba8b31ca9/resourceGroups/maya-prod-nw-rg/providers/Microsoft.Network/virtualNetworks/maya-prod-vnet",
+            "type": "String"
+        },
+        "applicationGateways_maya_prod_waf01_externalid": {
+            "defaultValue": "/subscriptions/a400b5b3-0dea-4445-84d1-e6dba8b31ca9/resourceGroups/maya-prod-nw-rg/providers/Microsoft.Network/applicationGateways/maya-prod-waf01",
+            "type": "String"
+        },
+        "disks_mayabe_mayabe_0_OsDisk_1_0d60048d5ecd4df884f3f3f0cefecc0a_externalid": {
+            "defaultValue": "/subscriptions/a400b5b3-0dea-4445-84d1-e6dba8b31ca9/resourceGroups/maya-prod-sf-rg/providers/Microsoft.Compute/disks/mayabe_mayabe_0_OsDisk_1_0d60048d5ecd4df884f3f3f0cefecc0a",
+            "type": "String"
+        },
+        "disks_mayabe_mayabe_1_OsDisk_1_6db65544b895443cb4d48ba434b2cca7_externalid": {
+            "defaultValue": "/subscriptions/a400b5b3-0dea-4445-84d1-e6dba8b31ca9/resourceGroups/maya-prod-sf-rg/providers/Microsoft.Compute/disks/mayabe_mayabe_1_OsDisk_1_6db65544b895443cb4d48ba434b2cca7",
+            "type": "String"
+        },
+        "disks_mayabe_mayabe_2_OsDisk_1_52d8124805b64a01adb7b6a2a712eefb_externalid": {
+            "defaultValue": "/subscriptions/a400b5b3-0dea-4445-84d1-e6dba8b31ca9/resourceGroups/maya-prod-sf-rg/providers/Microsoft.Compute/disks/mayabe_mayabe_2_OsDisk_1_52d8124805b64a01adb7b6a2a712eefb",
+            "type": "String"
+        },
+        "disks_mayabe_mayabe_3_OsDisk_1_4446e8254d3f426884af4c6f92ab77fc_externalid": {
+            "defaultValue": "/subscriptions/a400b5b3-0dea-4445-84d1-e6dba8b31ca9/resourceGroups/maya-prod-sf-rg/providers/Microsoft.Compute/disks/mayabe_mayabe_3_OsDisk_1_4446e8254d3f426884af4c6f92ab77fc",
+            "type": "String"
+        },
+        "disks_mayabe_mayabe_4_OsDisk_1_2a482d21f3dc46abb5a35af723124b2a_externalid": {
+            "defaultValue": "/subscriptions/a400b5b3-0dea-4445-84d1-e6dba8b31ca9/resourceGroups/maya-prod-sf-rg/providers/Microsoft.Compute/disks/mayabe_mayabe_4_OsDisk_1_2a482d21f3dc46abb5a35af723124b2a",
+            "type": "String"
+        },
+        "disks_mayafe_mayafe_0_OsDisk_1_517cdb9ef3574ff78354a21e6df64d56_externalid": {
+            "defaultValue": "/subscriptions/a400b5b3-0dea-4445-84d1-e6dba8b31ca9/resourceGroups/maya-prod-sf-rg/providers/Microsoft.Compute/disks/mayafe_mayafe_0_OsDisk_1_517cdb9ef3574ff78354a21e6df64d56",
+            "type": "String"
+        },
+        "disks_mayafe_mayafe_1_OsDisk_1_1cf82ec0ea904eb183197ecec703cdc4_externalid": {
+            "defaultValue": "/subscriptions/a400b5b3-0dea-4445-84d1-e6dba8b31ca9/resourceGroups/maya-prod-sf-rg/providers/Microsoft.Compute/disks/mayafe_mayafe_1_OsDisk_1_1cf82ec0ea904eb183197ecec703cdc4",
+            "type": "String"
+        },
+        "disks_mayafe_mayafe_2_OsDisk_1_95a05c92bbb041148327ed5325b07f8f_externalid": {
+            "defaultValue": "/subscriptions/a400b5b3-0dea-4445-84d1-e6dba8b31ca9/resourceGroups/maya-prod-sf-rg/providers/Microsoft.Compute/disks/mayafe_mayafe_2_OsDisk_1_95a05c92bbb041148327ed5325b07f8f",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Network/networkSecurityGroups",
+            "apiVersion": "2020-03-01",
+            "name": "[parameters('networkSecurityGroups_maya_prod_sfbe_nsg_name')]",
+            "location": "westeurope",
+            "properties": {
+                "securityRules": []
+            }
+        },
+        {
+            "type": "Microsoft.Network/networkSecurityGroups",
+            "apiVersion": "2020-03-01",
+            "name": "[parameters('networkSecurityGroups_maya_prod_sffe_nsg_name')]",
+            "location": "westeurope",
+            "properties": {
+                "securityRules": []
+            }
+        },
+        {
+            "type": "Microsoft.Network/publicIPAddresses",
+            "apiVersion": "2020-03-01",
+            "name": "[parameters('publicIPAddresses_LBIP_maya_prod_sf_mayabe_name')]",
+            "location": "westeurope",
+            "tags": {
+                "resourceType": "Service Fabric",
+                "clusterName": "maya-prod-sf"
+            },
+            "sku": {
+                "name": "Basic"
+            },
+            "properties": {
+                "ipAddress": "13.81.0.79",
+                "publicIPAddressVersion": "IPv4",
+                "publicIPAllocationMethod": "Dynamic",
+                "idleTimeoutInMinutes": 4,
+                "dnsSettings": {
+                    "domainNameLabel": "maya-prod-sf-mayabe",
+                    "fqdn": "maya-prod-sf-mayabe.westeurope.cloudapp.azure.com"
+                },
+                "ipTags": []
+            }
+        },
+        {
+            "type": "Microsoft.Network/publicIPAddresses",
+            "apiVersion": "2020-03-01",
+            "name": "[parameters('publicIPAddresses_LBIP_maya_prod_sf_mayafe_name')]",
+            "location": "westeurope",
+            "tags": {
+                "resourceType": "Service Fabric",
+                "clusterName": "maya-prod-sf"
+            },
+            "sku": {
+                "name": "Basic"
+            },
+            "properties": {
+                "ipAddress": "13.81.0.69",
+                "publicIPAddressVersion": "IPv4",
+                "publicIPAllocationMethod": "Static",
+                "idleTimeoutInMinutes": 4,
+                "dnsSettings": {
+                    "domainNameLabel": "maya-prod-sf",
+                    "fqdn": "maya-prod-sf.westeurope.cloudapp.azure.com"
+                },
+                "ipTags": []
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts",
+            "apiVersion": "2019-06-01",
+            "name": "[parameters('storageAccounts_sfdiagmayaprod01_name')]",
+            "location": "westeurope",
+            "tags": {
+                "resourceType": "Service Fabric",
+                "clusterName": "maya-prod-sf"
+            },
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "kind": "Storage",
+            "properties": {
+                "networkAcls": {
+                    "bypass": "AzureServices",
+                    "virtualNetworkRules": [
+                        {
+                            "id": "[concat(parameters('virtualNetworks_maya_prod_vnet_externalid'), '/subnets/sf-be-subnet')]",
+                            "action": "Allow",
+                            "state": "Succeeded"
+                        },
+                        {
+                            "id": "[concat(parameters('virtualNetworks_maya_prod_vnet_externalid'), '/subnets/sf-fe-subnet')]",
+                            "action": "Allow",
+                            "state": "Succeeded"
+                        }
+                    ],
+                    "ipRules": [
+                        {
+                            "value": "46.102.224.140",
+                            "action": "Allow"
+                        }
+                    ],
+                    "defaultAction": "Deny"
+                },
+                "supportsHttpsTrafficOnly": false,
+                "encryption": {
+                    "services": {
+                        "file": {
+                            "keyType": "Account",
+                            "enabled": true
+                        },
+                        "blob": {
+                            "keyType": "Account",
+                            "enabled": true
+                        }
+                    },
+                    "keySource": "Microsoft.Storage"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts",
+            "apiVersion": "2019-06-01",
+            "name": "[parameters('storageAccounts_sflogsmayaprod01_name')]",
+            "location": "westeurope",
+            "tags": {
+                "resourceType": "Service Fabric",
+                "clusterName": "maya-prod-sf"
+            },
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "kind": "Storage",
+            "properties": {
+                "networkAcls": {
+                    "bypass": "AzureServices",
+                    "virtualNetworkRules": [
+                        {
+                            "id": "[concat(parameters('virtualNetworks_maya_prod_vnet_externalid'), '/subnets/sf-be-subnet')]",
+                            "action": "Allow",
+                            "state": "Succeeded"
+                        },
+                        {
+                            "id": "[concat(parameters('virtualNetworks_maya_prod_vnet_externalid'), '/subnets/sf-fe-subnet')]",
+                            "action": "Allow",
+                            "state": "Succeeded"
+                        }
+                    ],
+                    "ipRules": [
+                        {
+                            "value": "46.102.224.140",
+                            "action": "Allow"
+                        }
+                    ],
+                    "defaultAction": "Deny"
+                },
+                "supportsHttpsTrafficOnly": false,
+                "encryption": {
+                    "services": {
+                        "file": {
+                            "keyType": "Account",
+                            "enabled": true
+                        },
+                        "blob": {
+                            "keyType": "Account",
+                            "enabled": true
+                        }
+                    },
+                    "keySource": "Microsoft.Storage"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Compute/virtualMachineScaleSets/extensions",
+            "apiVersion": "2019-07-01",
+            "name": "[concat(parameters('virtualMachineScaleSets_mayabe_name'), '/', parameters('virtualMachineScaleSets_mayabe_name'), '_ServiceFabricNode')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachineScaleSets', parameters('virtualMachineScaleSets_mayabe_name'))]"
+            ],
+            "properties": {
+                "provisioningState": "Succeeded",
+                "autoUpgradeMinorVersion": true,
+                "publisher": "Microsoft.Azure.ServiceFabric",
+                "type": "ServiceFabricNode",
+                "typeHandlerVersion": "1.1",
+                "settings": {
+                    "clusterEndpoint": "https://westeurope.servicefabric.azure.com/runtime/clusters/3d1d962b-0295-4502-a280-4c4d78dd85fa",
+                    "nodeTypeRef": "mayabe",
+                    "dataPath": "D:\\\\SvcFab",
+                    "durabilityLevel": "Bronze",
+                    "enableParallelJobs": true,
+                    "certificate": {
+                        "thumbprint": "C4F1A5E6DFF9591AE354601DF6F4A16A266999C2",
+                        "x509StoreName": "My"
+                    }
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Compute/virtualMachineScaleSets/extensions",
+            "apiVersion": "2019-07-01",
+            "name": "[concat(parameters('virtualMachineScaleSets_mayafe_name'), '/', parameters('virtualMachineScaleSets_mayafe_name'), '_ServiceFabricNode')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachineScaleSets', parameters('virtualMachineScaleSets_mayafe_name'))]"
+            ],
+            "properties": {
+                "provisioningState": "Succeeded",
+                "autoUpgradeMinorVersion": true,
+                "publisher": "Microsoft.Azure.ServiceFabric",
+                "type": "ServiceFabricNode",
+                "typeHandlerVersion": "1.1",
+                "settings": {
+                    "clusterEndpoint": "https://westeurope.servicefabric.azure.com/runtime/clusters/3d1d962b-0295-4502-a280-4c4d78dd85fa",
+                    "nodeTypeRef": "mayafe",
+                    "dataPath": "D:\\\\SvcFab",
+                    "durabilityLevel": "Bronze",
+                    "enableParallelJobs": true,
+                    "certificate": {
+                        "thumbprint": "C4F1A5E6DFF9591AE354601DF6F4A16A266999C2",
+                        "x509StoreName": "My"
+                    }
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Compute/virtualMachineScaleSets/extensions",
+            "apiVersion": "2019-07-01",
+            "name": "[concat(parameters('virtualMachineScaleSets_mayafe_name'), '/VMDiagnosticsVmExt_vmNodeType0Name')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachineScaleSets', parameters('virtualMachineScaleSets_mayafe_name'))]"
+            ],
+            "properties": {
+                "provisioningState": "Succeeded",
+                "autoUpgradeMinorVersion": true,
+                "publisher": "Microsoft.Azure.Diagnostics",
+                "type": "IaaSDiagnostics",
+                "typeHandlerVersion": "1.5",
+                "settings": {
+                    "WadCfg": {
+                        "DiagnosticMonitorConfiguration": {
+                            "overallQuotaInMB": "50000",
+                            "EtwProviders": {
+                                "EtwEventSourceProviderConfiguration": [
+                                    {
+                                        "provider": "Microsoft-ServiceFabric-Actors",
+                                        "scheduledTransferKeywordFilter": "1",
+                                        "scheduledTransferPeriod": "PT5M",
+                                        "DefaultEvents": {
+                                            "eventDestination": "ServiceFabricReliableActorEventTable"
+                                        }
+                                    },
+                                    {
+                                        "provider": "Microsoft-ServiceFabric-Services",
+                                        "scheduledTransferPeriod": "PT5M",
+                                        "DefaultEvents": {
+                                            "eventDestination": "ServiceFabricReliableServiceEventTable"
+                                        }
+                                    }
+                                ],
+                                "EtwManifestProviderConfiguration": [
+                                    {
+                                        "provider": "cbd93bc2-71e5-4566-b3a7-595d8eeca6e8",
+                                        "scheduledTransferLogLevelFilter": "Information",
+                                        "scheduledTransferKeywordFilter": "4611686018427387904",
+                                        "scheduledTransferPeriod": "PT5M",
+                                        "DefaultEvents": {
+                                            "eventDestination": "ServiceFabricSystemEventTable"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "StorageAccount": "sfdiagmayaprod01"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Compute/virtualMachineScaleSets/extensions",
+            "apiVersion": "2019-07-01",
+            "name": "[concat(parameters('virtualMachineScaleSets_mayabe_name'), '/VMDiagnosticsVmExt_vmNodeType1Name')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachineScaleSets', parameters('virtualMachineScaleSets_mayabe_name'))]"
+            ],
+            "properties": {
+                "provisioningState": "Succeeded",
+                "autoUpgradeMinorVersion": true,
+                "publisher": "Microsoft.Azure.Diagnostics",
+                "type": "IaaSDiagnostics",
+                "typeHandlerVersion": "1.5",
+                "settings": {
+                    "WadCfg": {
+                        "DiagnosticMonitorConfiguration": {
+                            "overallQuotaInMB": "50000",
+                            "EtwProviders": {
+                                "EtwEventSourceProviderConfiguration": [
+                                    {
+                                        "provider": "Microsoft-ServiceFabric-Actors",
+                                        "scheduledTransferKeywordFilter": "1",
+                                        "scheduledTransferPeriod": "PT5M",
+                                        "DefaultEvents": {
+                                            "eventDestination": "ServiceFabricReliableActorEventTable"
+                                        }
+                                    },
+                                    {
+                                        "provider": "Microsoft-ServiceFabric-Services",
+                                        "scheduledTransferPeriod": "PT5M",
+                                        "DefaultEvents": {
+                                            "eventDestination": "ServiceFabricReliableServiceEventTable"
+                                        }
+                                    }
+                                ],
+                                "EtwManifestProviderConfiguration": [
+                                    {
+                                        "provider": "cbd93bc2-71e5-4566-b3a7-595d8eeca6e8",
+                                        "scheduledTransferLogLevelFilter": "Information",
+                                        "scheduledTransferKeywordFilter": "4611686018427387904",
+                                        "scheduledTransferPeriod": "PT5M",
+                                        "DefaultEvents": {
+                                            "eventDestination": "ServiceFabricSystemEventTable"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "StorageAccount": "sfdiagmayaprod01"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Network/loadBalancers/inboundNatRules",
+            "apiVersion": "2020-03-01",
+            "name": "[concat(parameters('loadBalancers_LB_maya_prod_sf_mayabe_name'), '/LoadBalancerBEAddressNatPool.0')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayabe_name'))]"
+            ],
+            "properties": {
+                "frontendIPConfiguration": {
+                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayabe_name')), '/frontendIPConfigurations/LoadBalancerIPConfig')]"
+                },
+                "frontendPort": 3389,
+                "backendPort": 3389,
+                "enableFloatingIP": false,
+                "idleTimeoutInMinutes": 4,
+                "protocol": "Tcp",
+                "enableTcpReset": false
+            }
+        },
+        {
+            "type": "Microsoft.Network/loadBalancers/inboundNatRules",
+            "apiVersion": "2020-03-01",
+            "name": "[concat(parameters('loadBalancers_LB_maya_prod_sf_mayafe_name'), '/LoadBalancerBEAddressNatPool.0')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayafe_name'))]"
+            ],
+            "properties": {
+                "frontendIPConfiguration": {
+                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayafe_name')), '/frontendIPConfigurations/LoadBalancerIPConfig')]"
+                },
+                "frontendPort": 3389,
+                "backendPort": 3389,
+                "enableFloatingIP": false,
+                "idleTimeoutInMinutes": 4,
+                "protocol": "Tcp",
+                "enableTcpReset": false
+            }
+        },
+        {
+            "type": "Microsoft.Network/loadBalancers/inboundNatRules",
+            "apiVersion": "2020-03-01",
+            "name": "[concat(parameters('loadBalancers_LB_maya_prod_sf_mayabe_name'), '/LoadBalancerBEAddressNatPool.1')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayabe_name'))]"
+            ],
+            "properties": {
+                "frontendIPConfiguration": {
+                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayabe_name')), '/frontendIPConfigurations/LoadBalancerIPConfig')]"
+                },
+                "frontendPort": 3390,
+                "backendPort": 3389,
+                "enableFloatingIP": false,
+                "idleTimeoutInMinutes": 4,
+                "protocol": "Tcp",
+                "enableTcpReset": false
+            }
+        },
+        {
+            "type": "Microsoft.Network/loadBalancers/inboundNatRules",
+            "apiVersion": "2020-03-01",
+            "name": "[concat(parameters('loadBalancers_LB_maya_prod_sf_mayafe_name'), '/LoadBalancerBEAddressNatPool.1')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayafe_name'))]"
+            ],
+            "properties": {
+                "frontendIPConfiguration": {
+                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayafe_name')), '/frontendIPConfigurations/LoadBalancerIPConfig')]"
+                },
+                "frontendPort": 3390,
+                "backendPort": 3389,
+                "enableFloatingIP": false,
+                "idleTimeoutInMinutes": 4,
+                "protocol": "Tcp",
+                "enableTcpReset": false
+            }
+        },
+        {
+            "type": "Microsoft.Network/loadBalancers/inboundNatRules",
+            "apiVersion": "2020-03-01",
+            "name": "[concat(parameters('loadBalancers_LB_maya_prod_sf_mayabe_name'), '/LoadBalancerBEAddressNatPool.2')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayabe_name'))]"
+            ],
+            "properties": {
+                "frontendIPConfiguration": {
+                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayabe_name')), '/frontendIPConfigurations/LoadBalancerIPConfig')]"
+                },
+                "frontendPort": 3391,
+                "backendPort": 3389,
+                "enableFloatingIP": false,
+                "idleTimeoutInMinutes": 4,
+                "protocol": "Tcp",
+                "enableTcpReset": false
+            }
+        },
+        {
+            "type": "Microsoft.Network/loadBalancers/inboundNatRules",
+            "apiVersion": "2020-03-01",
+            "name": "[concat(parameters('loadBalancers_LB_maya_prod_sf_mayafe_name'), '/LoadBalancerBEAddressNatPool.2')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayafe_name'))]"
+            ],
+            "properties": {
+                "frontendIPConfiguration": {
+                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayafe_name')), '/frontendIPConfigurations/LoadBalancerIPConfig')]"
+                },
+                "frontendPort": 3391,
+                "backendPort": 3389,
+                "enableFloatingIP": false,
+                "idleTimeoutInMinutes": 4,
+                "protocol": "Tcp",
+                "enableTcpReset": false
+            }
+        },
+        {
+            "type": "Microsoft.Network/loadBalancers/inboundNatRules",
+            "apiVersion": "2020-03-01",
+            "name": "[concat(parameters('loadBalancers_LB_maya_prod_sf_mayabe_name'), '/LoadBalancerBEAddressNatPool.3')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayabe_name'))]"
+            ],
+            "properties": {
+                "frontendIPConfiguration": {
+                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayabe_name')), '/frontendIPConfigurations/LoadBalancerIPConfig')]"
+                },
+                "frontendPort": 3392,
+                "backendPort": 3389,
+                "enableFloatingIP": false,
+                "idleTimeoutInMinutes": 4,
+                "protocol": "Tcp",
+                "enableTcpReset": false
+            }
+        },
+        {
+            "type": "Microsoft.Network/loadBalancers/inboundNatRules",
+            "apiVersion": "2020-03-01",
+            "name": "[concat(parameters('loadBalancers_LB_maya_prod_sf_mayabe_name'), '/LoadBalancerBEAddressNatPool.4')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayabe_name'))]"
+            ],
+            "properties": {
+                "frontendIPConfiguration": {
+                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayabe_name')), '/frontendIPConfigurations/LoadBalancerIPConfig')]"
+                },
+                "frontendPort": 3393,
+                "backendPort": 3389,
+                "enableFloatingIP": false,
+                "idleTimeoutInMinutes": 4,
+                "protocol": "Tcp",
+                "enableTcpReset": false
+            }
+        },
+        {
+            "type": "Microsoft.ServiceFabric/clusters",
+            "apiVersion": "2019-11-01-preview",
+            "name": "[parameters('clusters_maya_prod_sf_name')]",
+            "location": "westeurope",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/StorageAccounts', parameters('storageAccounts_sflogsmayaprod01_name'))]"
+            ],
+            "tags": {
+                "resourceType": "Service Fabric",
+                "clusterName": "maya-prod-sf"
+            },
+            "properties": {
+                "clusterCodeVersion": "7.0.470.9590",
+                "managementEndpoint": "[concat('https://', parameters('clusters_maya_prod_sf_name'), '.westeurope.cloudapp.azure.com:19080')]",
+                "certificate": {
+                    "thumbprint": "C4F1A5E6DFF9591AE354601DF6F4A16A266999C2",
+                    "x509StoreName": "My"
+                },
+                "clientCertificateThumbprints": [],
+                "clientCertificateCommonNames": [],
+                "fabricSettings": [
+                    {
+                        "name": "Security",
+                        "parameters": [
+                            {
+                                "name": "ClusterProtectionLevel",
+                                "value": "EncryptAndSign"
+                            }
+                        ]
+                    }
+                ],
+                "vmImage": "Windows",
+                "reliabilityLevel": "Bronze",
+                "nodeTypes": [
+                    {
+                        "name": "mayafe",
+                        "vmInstanceCount": 3,
+                        "clientConnectionEndpointPort": 19000,
+                        "httpGatewayEndpointPort": 19080,
+                        "applicationPorts": {
+                            "startPort": 20000,
+                            "endPort": 30000
+                        },
+                        "ephemeralPorts": {
+                            "startPort": 49152,
+                            "endPort": 65534
+                        },
+                        "isPrimary": true,
+                        "durabilityLevel": "Bronze"
+                    },
+                    {
+                        "name": "mayabe",
+                        "vmInstanceCount": 5,
+                        "clientConnectionEndpointPort": 19000,
+                        "httpGatewayEndpointPort": 19080,
+                        "applicationPorts": {
+                            "startPort": 20000,
+                            "endPort": 30000
+                        },
+                        "ephemeralPorts": {
+                            "startPort": 49152,
+                            "endPort": 65534
+                        },
+                        "isPrimary": false,
+                        "durabilityLevel": "Bronze"
+                    }
+                ],
+                "diagnosticsStorageAccountConfig": {
+                    "storageAccountName": "sflogsmayaprod01",
+                    "protectedAccountKeyName": "StorageAccountKey1",
+                    "blobEndpoint": "[concat('https://', parameters('storageAccounts_sflogsmayaprod01_name'), '.blob.core.windows.net/')]",
+                    "queueEndpoint": "[concat('https://', parameters('storageAccounts_sflogsmayaprod01_name'), '.queue.core.windows.net/')]",
+                    "tableEndpoint": "[concat('https://', parameters('storageAccounts_sflogsmayaprod01_name'), '.table.core.windows.net/')]"
+                },
+                "upgradeMode": "Automatic",
+                "addonFeatures": [
+                    "DnsService",
+                    "RepairManager"
+                ]
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts/blobServices",
+            "apiVersion": "2019-06-01",
+            "name": "[concat(parameters('storageAccounts_sfdiagmayaprod01_name'), '/default')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_sfdiagmayaprod01_name'))]"
+            ],
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "properties": {
+                "cors": {
+                    "corsRules": []
+                },
+                "deleteRetentionPolicy": {
+                    "enabled": false
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts/blobServices",
+            "apiVersion": "2019-06-01",
+            "name": "[concat(parameters('storageAccounts_sflogsmayaprod01_name'), '/default')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_sflogsmayaprod01_name'))]"
+            ],
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "properties": {
+                "cors": {
+                    "corsRules": []
+                },
+                "deleteRetentionPolicy": {
+                    "enabled": false
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts/fileServices",
+            "apiVersion": "2019-06-01",
+            "name": "[concat(parameters('storageAccounts_sfdiagmayaprod01_name'), '/default')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_sfdiagmayaprod01_name'))]"
+            ],
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "properties": {
+                "cors": {
+                    "corsRules": []
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts/fileServices",
+            "apiVersion": "2019-06-01",
+            "name": "[concat(parameters('storageAccounts_sflogsmayaprod01_name'), '/default')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_sflogsmayaprod01_name'))]"
+            ],
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "properties": {
+                "cors": {
+                    "corsRules": []
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Compute/virtualMachineScaleSets",
+            "apiVersion": "2019-07-01",
+            "name": "[parameters('virtualMachineScaleSets_mayabe_name')]",
+            "location": "westeurope",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayabe_name'))]",
+                "[resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_maya_prod_sf_be_LB_name'))]"
+            ],
+            "tags": {
+                "resourceType": "Service Fabric",
+                "clusterName": "maya-prod-sf"
+            },
+            "sku": {
+                "name": "Standard_D1_v2",
+                "tier": "Standard",
+                "capacity": 5
+            },
+            "properties": {
+                "singlePlacementGroup": true,
+                "upgradePolicy": {
+                    "mode": "Automatic"
+                },
+                "virtualMachineProfile": {
+                    "osProfile": {
+                        "computerNamePrefix": "[parameters('virtualMachineScaleSets_mayabe_name')]",
+                        "adminUsername": "SFAdmin",
+                        "windowsConfiguration": {
+                            "provisionVMAgent": true,
+                            "enableAutomaticUpdates": true
+                        },
+                        "secrets": [
+                            {
+                                "sourceVault": {
+                                    "id": "[parameters('vaults_maya_prod_kv_externalid')]"
+                                },
+                                "vaultCertificates": [
+                                    {
+                                        "certificateUrl": "https://maya-prod-kv.vault.azure.net/secrets/sf-prod-cert/fcd3360b6e2b459ea23a747e6884d6c9",
+                                        "certificateStore": "My"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "storageProfile": {
+                        "osDisk": {
+                            "createOption": "FromImage",
+                            "caching": "ReadOnly",
+                            "managedDisk": {
+                                "storageAccountType": "Standard_LRS"
+                            }
+                        },
+                        "imageReference": {
+                            "publisher": "MicrosoftWindowsServer",
+                            "offer": "WindowsServer",
+                            "sku": "2016-Datacenter",
+                            "version": "latest"
+                        }
+                    },
+                    "networkProfile": {
+                        "networkInterfaceConfigurations": [
+                            {
+                                "name": "NIC-maya-prod-sf-1",
+                                "properties": {
+                                    "primary": true,
+                                    "enableAcceleratedNetworking": false,
+                                    "dnsSettings": {
+                                        "dnsServers": []
+                                    },
+                                    "enableIPForwarding": false,
+                                    "ipConfigurations": [
+                                        {
+                                            "name": "NIC-maya-prod-sf-1",
+                                            "properties": {
+                                                "subnet": {
+                                                    "id": "[concat(parameters('virtualNetworks_maya_prod_vnet_externalid'), '/subnets/sf-be-subnet')]"
+                                                },
+                                                "privateIPAddressVersion": "IPv4",
+                                                "loadBalancerBackendAddressPools": [
+                                                    {
+                                                        "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayabe_name')), '/backendAddressPools/LoadBalancerBEAddressPool')]"
+                                                    },
+                                                    {
+                                                        "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_maya_prod_sf_be_LB_name')), '/backendAddressPools/SF-BackEnd-Pool')]"
+                                                    }
+                                                ],
+                                                "applicationGatewayBackendAddressPools": [
+                                                    {
+                                                        "id": "[concat(parameters('applicationGateways_maya_prod_waf01_externalid'), '/backendAddressPools/SF-BackEnd')]"
+                                                    }
+                                                ],
+                                                "loadBalancerInboundNatPools": [
+                                                    {
+                                                        "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayabe_name')), '/inboundNatPools/LoadBalancerBEAddressNatPool')]"
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    },
+                    "extensionProfile": {
+                        "extensions": [
+                            {
+                                "name": "[concat(parameters('virtualMachineScaleSets_mayabe_name'), '_ServiceFabricNode')]",
+                                "properties": {
+                                    "autoUpgradeMinorVersion": true,
+                                    "publisher": "Microsoft.Azure.ServiceFabric",
+                                    "type": "ServiceFabricNode",
+                                    "typeHandlerVersion": "1.1",
+                                    "settings": {
+                                        "clusterEndpoint": "https://westeurope.servicefabric.azure.com/runtime/clusters/3d1d962b-0295-4502-a280-4c4d78dd85fa",
+                                        "nodeTypeRef": "[parameters('virtualMachineScaleSets_mayabe_name')]",
+                                        "dataPath": "D:\\\\SvcFab",
+                                        "durabilityLevel": "Bronze",
+                                        "enableParallelJobs": true,
+                                        "certificate": {
+                                            "thumbprint": "C4F1A5E6DFF9591AE354601DF6F4A16A266999C2",
+                                            "x509StoreName": "My"
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                "name": "VMDiagnosticsVmExt_vmNodeType1Name",
+                                "properties": {
+                                    "autoUpgradeMinorVersion": true,
+                                    "publisher": "Microsoft.Azure.Diagnostics",
+                                    "type": "IaaSDiagnostics",
+                                    "typeHandlerVersion": "1.5",
+                                    "settings": {
+                                        "WadCfg": {
+                                            "DiagnosticMonitorConfiguration": {
+                                                "overallQuotaInMB": "50000",
+                                                "EtwProviders": {
+                                                    "EtwEventSourceProviderConfiguration": [
+                                                        {
+                                                            "provider": "Microsoft-ServiceFabric-Actors",
+                                                            "scheduledTransferKeywordFilter": "1",
+                                                            "scheduledTransferPeriod": "PT5M",
+                                                            "DefaultEvents": {
+                                                                "eventDestination": "ServiceFabricReliableActorEventTable"
+                                                            }
+                                                        },
+                                                        {
+                                                            "provider": "Microsoft-ServiceFabric-Services",
+                                                            "scheduledTransferPeriod": "PT5M",
+                                                            "DefaultEvents": {
+                                                                "eventDestination": "ServiceFabricReliableServiceEventTable"
+                                                            }
+                                                        }
+                                                    ],
+                                                    "EtwManifestProviderConfiguration": [
+                                                        {
+                                                            "provider": "cbd93bc2-71e5-4566-b3a7-595d8eeca6e8",
+                                                            "scheduledTransferLogLevelFilter": "Information",
+                                                            "scheduledTransferKeywordFilter": "4611686018427387904",
+                                                            "scheduledTransferPeriod": "PT5M",
+                                                            "DefaultEvents": {
+                                                                "eventDestination": "ServiceFabricSystemEventTable"
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            }
+                                        },
+                                        "StorageAccount": "sfdiagmayaprod01"
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                },
+                "overprovision": false,
+                "doNotRunExtensionsOnOverprovisionedVMs": false
+            }
+        },
+        {
+            "type": "Microsoft.Compute/virtualMachineScaleSets",
+            "apiVersion": "2019-07-01",
+            "name": "[parameters('virtualMachineScaleSets_mayafe_name')]",
+            "location": "westeurope",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayafe_name'))]",
+                "[resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_maya_prod_sf_fe_LB_name'))]"
+            ],
+            "tags": {
+                "resourceType": "Service Fabric",
+                "clusterName": "maya-prod-sf"
+            },
+            "sku": {
+                "name": "Standard_D1_v2",
+                "tier": "Standard",
+                "capacity": 3
+            },
+            "properties": {
+                "singlePlacementGroup": true,
+                "upgradePolicy": {
+                    "mode": "Automatic"
+                },
+                "virtualMachineProfile": {
+                    "osProfile": {
+                        "computerNamePrefix": "[parameters('virtualMachineScaleSets_mayafe_name')]",
+                        "adminUsername": "SFAdmin",
+                        "windowsConfiguration": {
+                            "provisionVMAgent": true,
+                            "enableAutomaticUpdates": true
+                        },
+                        "secrets": [
+                            {
+                                "sourceVault": {
+                                    "id": "[parameters('vaults_maya_prod_kv_externalid')]"
+                                },
+                                "vaultCertificates": [
+                                    {
+                                        "certificateUrl": "https://maya-prod-kv.vault.azure.net/secrets/sf-prod-cert/fcd3360b6e2b459ea23a747e6884d6c9",
+                                        "certificateStore": "My"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "storageProfile": {
+                        "osDisk": {
+                            "createOption": "FromImage",
+                            "caching": "ReadOnly",
+                            "managedDisk": {
+                                "storageAccountType": "Standard_LRS"
+                            }
+                        },
+                        "imageReference": {
+                            "publisher": "MicrosoftWindowsServer",
+                            "offer": "WindowsServer",
+                            "sku": "2016-Datacenter",
+                            "version": "latest"
+                        }
+                    },
+                    "networkProfile": {
+                        "networkInterfaceConfigurations": [
+                            {
+                                "name": "NIC-maya-prod-sf-0",
+                                "properties": {
+                                    "primary": true,
+                                    "enableAcceleratedNetworking": false,
+                                    "dnsSettings": {
+                                        "dnsServers": []
+                                    },
+                                    "enableIPForwarding": false,
+                                    "ipConfigurations": [
+                                        {
+                                            "name": "NIC-maya-prod-sf-0",
+                                            "properties": {
+                                                "subnet": {
+                                                    "id": "[concat(parameters('virtualNetworks_maya_prod_vnet_externalid'), '/subnets/sf-fe-subnet')]"
+                                                },
+                                                "privateIPAddressVersion": "IPv4",
+                                                "loadBalancerBackendAddressPools": [
+                                                    {
+                                                        "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayafe_name')), '/backendAddressPools/LoadBalancerBEAddressPool')]"
+                                                    },
+                                                    {
+                                                        "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_maya_prod_sf_fe_LB_name')), '/backendAddressPools/SF-FrontEnd-Pool')]"
+                                                    }
+                                                ],
+                                                "loadBalancerInboundNatPools": [
+                                                    {
+                                                        "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayafe_name')), '/inboundNatPools/LoadBalancerBEAddressNatPool')]"
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    },
+                    "extensionProfile": {
+                        "extensions": [
+                            {
+                                "name": "[concat(parameters('virtualMachineScaleSets_mayafe_name'), '_ServiceFabricNode')]",
+                                "properties": {
+                                    "autoUpgradeMinorVersion": true,
+                                    "publisher": "Microsoft.Azure.ServiceFabric",
+                                    "type": "ServiceFabricNode",
+                                    "typeHandlerVersion": "1.1",
+                                    "settings": {
+                                        "clusterEndpoint": "https://westeurope.servicefabric.azure.com/runtime/clusters/3d1d962b-0295-4502-a280-4c4d78dd85fa",
+                                        "nodeTypeRef": "[parameters('virtualMachineScaleSets_mayafe_name')]",
+                                        "dataPath": "D:\\\\SvcFab",
+                                        "durabilityLevel": "Bronze",
+                                        "enableParallelJobs": true,
+                                        "certificate": {
+                                            "thumbprint": "C4F1A5E6DFF9591AE354601DF6F4A16A266999C2",
+                                            "x509StoreName": "My"
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                "name": "VMDiagnosticsVmExt_vmNodeType0Name",
+                                "properties": {
+                                    "autoUpgradeMinorVersion": true,
+                                    "publisher": "Microsoft.Azure.Diagnostics",
+                                    "type": "IaaSDiagnostics",
+                                    "typeHandlerVersion": "1.5",
+                                    "settings": {
+                                        "WadCfg": {
+                                            "DiagnosticMonitorConfiguration": {
+                                                "overallQuotaInMB": "50000",
+                                                "EtwProviders": {
+                                                    "EtwEventSourceProviderConfiguration": [
+                                                        {
+                                                            "provider": "Microsoft-ServiceFabric-Actors",
+                                                            "scheduledTransferKeywordFilter": "1",
+                                                            "scheduledTransferPeriod": "PT5M",
+                                                            "DefaultEvents": {
+                                                                "eventDestination": "ServiceFabricReliableActorEventTable"
+                                                            }
+                                                        },
+                                                        {
+                                                            "provider": "Microsoft-ServiceFabric-Services",
+                                                            "scheduledTransferPeriod": "PT5M",
+                                                            "DefaultEvents": {
+                                                                "eventDestination": "ServiceFabricReliableServiceEventTable"
+                                                            }
+                                                        }
+                                                    ],
+                                                    "EtwManifestProviderConfiguration": [
+                                                        {
+                                                            "provider": "cbd93bc2-71e5-4566-b3a7-595d8eeca6e8",
+                                                            "scheduledTransferLogLevelFilter": "Information",
+                                                            "scheduledTransferKeywordFilter": "4611686018427387904",
+                                                            "scheduledTransferPeriod": "PT5M",
+                                                            "DefaultEvents": {
+                                                                "eventDestination": "ServiceFabricSystemEventTable"
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            }
+                                        },
+                                        "StorageAccount": "sfdiagmayaprod01"
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                },
+                "overprovision": false,
+                "doNotRunExtensionsOnOverprovisionedVMs": false
+            }
+        },
+        {
+            "type": "Microsoft.Compute/virtualMachineScaleSets/virtualMachines/extensions",
+            "apiVersion": "2019-07-01",
+            "name": "[concat(parameters('virtualMachineScaleSets_mayabe_name'), '/0/', parameters('virtualMachineScaleSets_mayabe_name'), '_ServiceFabricNode')]",
+            "location": "westeurope",
+            "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachineScaleSets/virtualMachines', parameters('virtualMachineScaleSets_mayabe_name'), '0')]",
+                "[resourceId('Microsoft.Compute/virtualMachineScaleSets', parameters('virtualMachineScaleSets_mayabe_name'))]"
+            ],
+            "properties": {
+                "autoUpgradeMinorVersion": true,
+                "publisher": "Microsoft.Azure.ServiceFabric",
+                "type": "ServiceFabricNode",
+                "typeHandlerVersion": "1.1",
+                "settings": {
+                    "clusterEndpoint": "https://westeurope.servicefabric.azure.com/runtime/clusters/3d1d962b-0295-4502-a280-4c4d78dd85fa",
+                    "nodeTypeRef": "mayabe",
+                    "dataPath": "D:\\\\SvcFab",
+                    "durabilityLevel": "Bronze",
+                    "enableParallelJobs": true,
+                    "certificate": {
+                        "thumbprint": "C4F1A5E6DFF9591AE354601DF6F4A16A266999C2",
+                        "x509StoreName": "My"
+                    }
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Compute/virtualMachineScaleSets/virtualMachines/extensions",
+            "apiVersion": "2019-07-01",
+            "name": "[concat(parameters('virtualMachineScaleSets_mayabe_name'), '/1/', parameters('virtualMachineScaleSets_mayabe_name'), '_ServiceFabricNode')]",
+            "location": "westeurope",
+            "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachineScaleSets/virtualMachines', parameters('virtualMachineScaleSets_mayabe_name'), '1')]",
+                "[resourceId('Microsoft.Compute/virtualMachineScaleSets', parameters('virtualMachineScaleSets_mayabe_name'))]"
+            ],
+            "properties": {
+                "autoUpgradeMinorVersion": true,
+                "publisher": "Microsoft.Azure.ServiceFabric",
+                "type": "ServiceFabricNode",
+                "typeHandlerVersion": "1.1",
+                "settings": {
+                    "clusterEndpoint": "https://westeurope.servicefabric.azure.com/runtime/clusters/3d1d962b-0295-4502-a280-4c4d78dd85fa",
+                    "nodeTypeRef": "mayabe",
+                    "dataPath": "D:\\\\SvcFab",
+                    "durabilityLevel": "Bronze",
+                    "enableParallelJobs": true,
+                    "certificate": {
+                        "thumbprint": "C4F1A5E6DFF9591AE354601DF6F4A16A266999C2",
+                        "x509StoreName": "My"
+                    }
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Compute/virtualMachineScaleSets/virtualMachines/extensions",
+            "apiVersion": "2019-07-01",
+            "name": "[concat(parameters('virtualMachineScaleSets_mayabe_name'), '/2/', parameters('virtualMachineScaleSets_mayabe_name'), '_ServiceFabricNode')]",
+            "location": "westeurope",
+            "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachineScaleSets/virtualMachines', parameters('virtualMachineScaleSets_mayabe_name'), '2')]",
+                "[resourceId('Microsoft.Compute/virtualMachineScaleSets', parameters('virtualMachineScaleSets_mayabe_name'))]"
+            ],
+            "properties": {
+                "autoUpgradeMinorVersion": true,
+                "publisher": "Microsoft.Azure.ServiceFabric",
+                "type": "ServiceFabricNode",
+                "typeHandlerVersion": "1.1",
+                "settings": {
+                    "clusterEndpoint": "https://westeurope.servicefabric.azure.com/runtime/clusters/3d1d962b-0295-4502-a280-4c4d78dd85fa",
+                    "nodeTypeRef": "mayabe",
+                    "dataPath": "D:\\\\SvcFab",
+                    "durabilityLevel": "Bronze",
+                    "enableParallelJobs": true,
+                    "certificate": {
+                        "thumbprint": "C4F1A5E6DFF9591AE354601DF6F4A16A266999C2",
+                        "x509StoreName": "My"
+                    }
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Compute/virtualMachineScaleSets/virtualMachines/extensions",
+            "apiVersion": "2019-07-01",
+            "name": "[concat(parameters('virtualMachineScaleSets_mayabe_name'), '/3/', parameters('virtualMachineScaleSets_mayabe_name'), '_ServiceFabricNode')]",
+            "location": "westeurope",
+            "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachineScaleSets/virtualMachines', parameters('virtualMachineScaleSets_mayabe_name'), '3')]",
+                "[resourceId('Microsoft.Compute/virtualMachineScaleSets', parameters('virtualMachineScaleSets_mayabe_name'))]"
+            ],
+            "properties": {
+                "autoUpgradeMinorVersion": true,
+                "publisher": "Microsoft.Azure.ServiceFabric",
+                "type": "ServiceFabricNode",
+                "typeHandlerVersion": "1.1",
+                "settings": {
+                    "clusterEndpoint": "https://westeurope.servicefabric.azure.com/runtime/clusters/3d1d962b-0295-4502-a280-4c4d78dd85fa",
+                    "nodeTypeRef": "mayabe",
+                    "dataPath": "D:\\\\SvcFab",
+                    "durabilityLevel": "Bronze",
+                    "enableParallelJobs": true,
+                    "certificate": {
+                        "thumbprint": "C4F1A5E6DFF9591AE354601DF6F4A16A266999C2",
+                        "x509StoreName": "My"
+                    }
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Compute/virtualMachineScaleSets/virtualMachines/extensions",
+            "apiVersion": "2019-07-01",
+            "name": "[concat(parameters('virtualMachineScaleSets_mayabe_name'), '/4/', parameters('virtualMachineScaleSets_mayabe_name'), '_ServiceFabricNode')]",
+            "location": "westeurope",
+            "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachineScaleSets/virtualMachines', parameters('virtualMachineScaleSets_mayabe_name'), '4')]",
+                "[resourceId('Microsoft.Compute/virtualMachineScaleSets', parameters('virtualMachineScaleSets_mayabe_name'))]"
+            ],
+            "properties": {
+                "autoUpgradeMinorVersion": true,
+                "publisher": "Microsoft.Azure.ServiceFabric",
+                "type": "ServiceFabricNode",
+                "typeHandlerVersion": "1.1",
+                "settings": {
+                    "clusterEndpoint": "https://westeurope.servicefabric.azure.com/runtime/clusters/3d1d962b-0295-4502-a280-4c4d78dd85fa",
+                    "nodeTypeRef": "mayabe",
+                    "dataPath": "D:\\\\SvcFab",
+                    "durabilityLevel": "Bronze",
+                    "enableParallelJobs": true,
+                    "certificate": {
+                        "thumbprint": "C4F1A5E6DFF9591AE354601DF6F4A16A266999C2",
+                        "x509StoreName": "My"
+                    }
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Compute/virtualMachineScaleSets/virtualMachines/extensions",
+            "apiVersion": "2019-07-01",
+            "name": "[concat(parameters('virtualMachineScaleSets_mayafe_name'), '/0/', parameters('virtualMachineScaleSets_mayafe_name'), '_ServiceFabricNode')]",
+            "location": "westeurope",
+            "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachineScaleSets/virtualMachines', parameters('virtualMachineScaleSets_mayafe_name'), '0')]",
+                "[resourceId('Microsoft.Compute/virtualMachineScaleSets', parameters('virtualMachineScaleSets_mayafe_name'))]"
+            ],
+            "properties": {
+                "autoUpgradeMinorVersion": true,
+                "publisher": "Microsoft.Azure.ServiceFabric",
+                "type": "ServiceFabricNode",
+                "typeHandlerVersion": "1.1",
+                "settings": {
+                    "clusterEndpoint": "https://westeurope.servicefabric.azure.com/runtime/clusters/3d1d962b-0295-4502-a280-4c4d78dd85fa",
+                    "nodeTypeRef": "mayafe",
+                    "dataPath": "D:\\\\SvcFab",
+                    "durabilityLevel": "Bronze",
+                    "enableParallelJobs": true,
+                    "certificate": {
+                        "thumbprint": "C4F1A5E6DFF9591AE354601DF6F4A16A266999C2",
+                        "x509StoreName": "My"
+                    }
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Compute/virtualMachineScaleSets/virtualMachines/extensions",
+            "apiVersion": "2019-07-01",
+            "name": "[concat(parameters('virtualMachineScaleSets_mayafe_name'), '/1/', parameters('virtualMachineScaleSets_mayafe_name'), '_ServiceFabricNode')]",
+            "location": "westeurope",
+            "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachineScaleSets/virtualMachines', parameters('virtualMachineScaleSets_mayafe_name'), '1')]",
+                "[resourceId('Microsoft.Compute/virtualMachineScaleSets', parameters('virtualMachineScaleSets_mayafe_name'))]"
+            ],
+            "properties": {
+                "autoUpgradeMinorVersion": true,
+                "publisher": "Microsoft.Azure.ServiceFabric",
+                "type": "ServiceFabricNode",
+                "typeHandlerVersion": "1.1",
+                "settings": {
+                    "clusterEndpoint": "https://westeurope.servicefabric.azure.com/runtime/clusters/3d1d962b-0295-4502-a280-4c4d78dd85fa",
+                    "nodeTypeRef": "mayafe",
+                    "dataPath": "D:\\\\SvcFab",
+                    "durabilityLevel": "Bronze",
+                    "enableParallelJobs": true,
+                    "certificate": {
+                        "thumbprint": "C4F1A5E6DFF9591AE354601DF6F4A16A266999C2",
+                        "x509StoreName": "My"
+                    }
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Compute/virtualMachineScaleSets/virtualMachines/extensions",
+            "apiVersion": "2019-07-01",
+            "name": "[concat(parameters('virtualMachineScaleSets_mayafe_name'), '/2/', parameters('virtualMachineScaleSets_mayafe_name'), '_ServiceFabricNode')]",
+            "location": "westeurope",
+            "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachineScaleSets/virtualMachines', parameters('virtualMachineScaleSets_mayafe_name'), '2')]",
+                "[resourceId('Microsoft.Compute/virtualMachineScaleSets', parameters('virtualMachineScaleSets_mayafe_name'))]"
+            ],
+            "properties": {
+                "autoUpgradeMinorVersion": true,
+                "publisher": "Microsoft.Azure.ServiceFabric",
+                "type": "ServiceFabricNode",
+                "typeHandlerVersion": "1.1",
+                "settings": {
+                    "clusterEndpoint": "https://westeurope.servicefabric.azure.com/runtime/clusters/3d1d962b-0295-4502-a280-4c4d78dd85fa",
+                    "nodeTypeRef": "mayafe",
+                    "dataPath": "D:\\\\SvcFab",
+                    "durabilityLevel": "Bronze",
+                    "enableParallelJobs": true,
+                    "certificate": {
+                        "thumbprint": "C4F1A5E6DFF9591AE354601DF6F4A16A266999C2",
+                        "x509StoreName": "My"
+                    }
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Compute/virtualMachineScaleSets/virtualMachines/extensions",
+            "apiVersion": "2019-07-01",
+            "name": "[concat(parameters('virtualMachineScaleSets_mayafe_name'), '/0/VMDiagnosticsVmExt_vmNodeType0Name')]",
+            "location": "westeurope",
+            "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachineScaleSets/virtualMachines', parameters('virtualMachineScaleSets_mayafe_name'), '0')]",
+                "[resourceId('Microsoft.Compute/virtualMachineScaleSets', parameters('virtualMachineScaleSets_mayafe_name'))]"
+            ],
+            "properties": {
+                "autoUpgradeMinorVersion": true,
+                "publisher": "Microsoft.Azure.Diagnostics",
+                "type": "IaaSDiagnostics",
+                "typeHandlerVersion": "1.5",
+                "settings": {
+                    "WadCfg": {
+                        "DiagnosticMonitorConfiguration": {
+                            "overallQuotaInMB": "50000",
+                            "EtwProviders": {
+                                "EtwEventSourceProviderConfiguration": [
+                                    {
+                                        "provider": "Microsoft-ServiceFabric-Actors",
+                                        "scheduledTransferKeywordFilter": "1",
+                                        "scheduledTransferPeriod": "PT5M",
+                                        "DefaultEvents": {
+                                            "eventDestination": "ServiceFabricReliableActorEventTable"
+                                        }
+                                    },
+                                    {
+                                        "provider": "Microsoft-ServiceFabric-Services",
+                                        "scheduledTransferPeriod": "PT5M",
+                                        "DefaultEvents": {
+                                            "eventDestination": "ServiceFabricReliableServiceEventTable"
+                                        }
+                                    }
+                                ],
+                                "EtwManifestProviderConfiguration": [
+                                    {
+                                        "provider": "cbd93bc2-71e5-4566-b3a7-595d8eeca6e8",
+                                        "scheduledTransferLogLevelFilter": "Information",
+                                        "scheduledTransferKeywordFilter": "4611686018427387904",
+                                        "scheduledTransferPeriod": "PT5M",
+                                        "DefaultEvents": {
+                                            "eventDestination": "ServiceFabricSystemEventTable"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "StorageAccount": "sfdiagmayaprod01"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Compute/virtualMachineScaleSets/virtualMachines/extensions",
+            "apiVersion": "2019-07-01",
+            "name": "[concat(parameters('virtualMachineScaleSets_mayafe_name'), '/1/VMDiagnosticsVmExt_vmNodeType0Name')]",
+            "location": "westeurope",
+            "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachineScaleSets/virtualMachines', parameters('virtualMachineScaleSets_mayafe_name'), '1')]",
+                "[resourceId('Microsoft.Compute/virtualMachineScaleSets', parameters('virtualMachineScaleSets_mayafe_name'))]"
+            ],
+            "properties": {
+                "autoUpgradeMinorVersion": true,
+                "publisher": "Microsoft.Azure.Diagnostics",
+                "type": "IaaSDiagnostics",
+                "typeHandlerVersion": "1.5",
+                "settings": {
+                    "WadCfg": {
+                        "DiagnosticMonitorConfiguration": {
+                            "overallQuotaInMB": "50000",
+                            "EtwProviders": {
+                                "EtwEventSourceProviderConfiguration": [
+                                    {
+                                        "provider": "Microsoft-ServiceFabric-Actors",
+                                        "scheduledTransferKeywordFilter": "1",
+                                        "scheduledTransferPeriod": "PT5M",
+                                        "DefaultEvents": {
+                                            "eventDestination": "ServiceFabricReliableActorEventTable"
+                                        }
+                                    },
+                                    {
+                                        "provider": "Microsoft-ServiceFabric-Services",
+                                        "scheduledTransferPeriod": "PT5M",
+                                        "DefaultEvents": {
+                                            "eventDestination": "ServiceFabricReliableServiceEventTable"
+                                        }
+                                    }
+                                ],
+                                "EtwManifestProviderConfiguration": [
+                                    {
+                                        "provider": "cbd93bc2-71e5-4566-b3a7-595d8eeca6e8",
+                                        "scheduledTransferLogLevelFilter": "Information",
+                                        "scheduledTransferKeywordFilter": "4611686018427387904",
+                                        "scheduledTransferPeriod": "PT5M",
+                                        "DefaultEvents": {
+                                            "eventDestination": "ServiceFabricSystemEventTable"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "StorageAccount": "sfdiagmayaprod01"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Compute/virtualMachineScaleSets/virtualMachines/extensions",
+            "apiVersion": "2019-07-01",
+            "name": "[concat(parameters('virtualMachineScaleSets_mayafe_name'), '/2/VMDiagnosticsVmExt_vmNodeType0Name')]",
+            "location": "westeurope",
+            "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachineScaleSets/virtualMachines', parameters('virtualMachineScaleSets_mayafe_name'), '2')]",
+                "[resourceId('Microsoft.Compute/virtualMachineScaleSets', parameters('virtualMachineScaleSets_mayafe_name'))]"
+            ],
+            "properties": {
+                "autoUpgradeMinorVersion": true,
+                "publisher": "Microsoft.Azure.Diagnostics",
+                "type": "IaaSDiagnostics",
+                "typeHandlerVersion": "1.5",
+                "settings": {
+                    "WadCfg": {
+                        "DiagnosticMonitorConfiguration": {
+                            "overallQuotaInMB": "50000",
+                            "EtwProviders": {
+                                "EtwEventSourceProviderConfiguration": [
+                                    {
+                                        "provider": "Microsoft-ServiceFabric-Actors",
+                                        "scheduledTransferKeywordFilter": "1",
+                                        "scheduledTransferPeriod": "PT5M",
+                                        "DefaultEvents": {
+                                            "eventDestination": "ServiceFabricReliableActorEventTable"
+                                        }
+                                    },
+                                    {
+                                        "provider": "Microsoft-ServiceFabric-Services",
+                                        "scheduledTransferPeriod": "PT5M",
+                                        "DefaultEvents": {
+                                            "eventDestination": "ServiceFabricReliableServiceEventTable"
+                                        }
+                                    }
+                                ],
+                                "EtwManifestProviderConfiguration": [
+                                    {
+                                        "provider": "cbd93bc2-71e5-4566-b3a7-595d8eeca6e8",
+                                        "scheduledTransferLogLevelFilter": "Information",
+                                        "scheduledTransferKeywordFilter": "4611686018427387904",
+                                        "scheduledTransferPeriod": "PT5M",
+                                        "DefaultEvents": {
+                                            "eventDestination": "ServiceFabricSystemEventTable"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "StorageAccount": "sfdiagmayaprod01"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Compute/virtualMachineScaleSets/virtualMachines/extensions",
+            "apiVersion": "2019-07-01",
+            "name": "[concat(parameters('virtualMachineScaleSets_mayabe_name'), '/0/VMDiagnosticsVmExt_vmNodeType1Name')]",
+            "location": "westeurope",
+            "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachineScaleSets/virtualMachines', parameters('virtualMachineScaleSets_mayabe_name'), '0')]",
+                "[resourceId('Microsoft.Compute/virtualMachineScaleSets', parameters('virtualMachineScaleSets_mayabe_name'))]"
+            ],
+            "properties": {
+                "autoUpgradeMinorVersion": true,
+                "publisher": "Microsoft.Azure.Diagnostics",
+                "type": "IaaSDiagnostics",
+                "typeHandlerVersion": "1.5",
+                "settings": {
+                    "WadCfg": {
+                        "DiagnosticMonitorConfiguration": {
+                            "overallQuotaInMB": "50000",
+                            "EtwProviders": {
+                                "EtwEventSourceProviderConfiguration": [
+                                    {
+                                        "provider": "Microsoft-ServiceFabric-Actors",
+                                        "scheduledTransferKeywordFilter": "1",
+                                        "scheduledTransferPeriod": "PT5M",
+                                        "DefaultEvents": {
+                                            "eventDestination": "ServiceFabricReliableActorEventTable"
+                                        }
+                                    },
+                                    {
+                                        "provider": "Microsoft-ServiceFabric-Services",
+                                        "scheduledTransferPeriod": "PT5M",
+                                        "DefaultEvents": {
+                                            "eventDestination": "ServiceFabricReliableServiceEventTable"
+                                        }
+                                    }
+                                ],
+                                "EtwManifestProviderConfiguration": [
+                                    {
+                                        "provider": "cbd93bc2-71e5-4566-b3a7-595d8eeca6e8",
+                                        "scheduledTransferLogLevelFilter": "Information",
+                                        "scheduledTransferKeywordFilter": "4611686018427387904",
+                                        "scheduledTransferPeriod": "PT5M",
+                                        "DefaultEvents": {
+                                            "eventDestination": "ServiceFabricSystemEventTable"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "StorageAccount": "sfdiagmayaprod01"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Compute/virtualMachineScaleSets/virtualMachines/extensions",
+            "apiVersion": "2019-07-01",
+            "name": "[concat(parameters('virtualMachineScaleSets_mayabe_name'), '/1/VMDiagnosticsVmExt_vmNodeType1Name')]",
+            "location": "westeurope",
+            "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachineScaleSets/virtualMachines', parameters('virtualMachineScaleSets_mayabe_name'), '1')]",
+                "[resourceId('Microsoft.Compute/virtualMachineScaleSets', parameters('virtualMachineScaleSets_mayabe_name'))]"
+            ],
+            "properties": {
+                "autoUpgradeMinorVersion": true,
+                "publisher": "Microsoft.Azure.Diagnostics",
+                "type": "IaaSDiagnostics",
+                "typeHandlerVersion": "1.5",
+                "settings": {
+                    "WadCfg": {
+                        "DiagnosticMonitorConfiguration": {
+                            "overallQuotaInMB": "50000",
+                            "EtwProviders": {
+                                "EtwEventSourceProviderConfiguration": [
+                                    {
+                                        "provider": "Microsoft-ServiceFabric-Actors",
+                                        "scheduledTransferKeywordFilter": "1",
+                                        "scheduledTransferPeriod": "PT5M",
+                                        "DefaultEvents": {
+                                            "eventDestination": "ServiceFabricReliableActorEventTable"
+                                        }
+                                    },
+                                    {
+                                        "provider": "Microsoft-ServiceFabric-Services",
+                                        "scheduledTransferPeriod": "PT5M",
+                                        "DefaultEvents": {
+                                            "eventDestination": "ServiceFabricReliableServiceEventTable"
+                                        }
+                                    }
+                                ],
+                                "EtwManifestProviderConfiguration": [
+                                    {
+                                        "provider": "cbd93bc2-71e5-4566-b3a7-595d8eeca6e8",
+                                        "scheduledTransferLogLevelFilter": "Information",
+                                        "scheduledTransferKeywordFilter": "4611686018427387904",
+                                        "scheduledTransferPeriod": "PT5M",
+                                        "DefaultEvents": {
+                                            "eventDestination": "ServiceFabricSystemEventTable"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "StorageAccount": "sfdiagmayaprod01"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Compute/virtualMachineScaleSets/virtualMachines/extensions",
+            "apiVersion": "2019-07-01",
+            "name": "[concat(parameters('virtualMachineScaleSets_mayabe_name'), '/2/VMDiagnosticsVmExt_vmNodeType1Name')]",
+            "location": "westeurope",
+            "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachineScaleSets/virtualMachines', parameters('virtualMachineScaleSets_mayabe_name'), '2')]",
+                "[resourceId('Microsoft.Compute/virtualMachineScaleSets', parameters('virtualMachineScaleSets_mayabe_name'))]"
+            ],
+            "properties": {
+                "autoUpgradeMinorVersion": true,
+                "publisher": "Microsoft.Azure.Diagnostics",
+                "type": "IaaSDiagnostics",
+                "typeHandlerVersion": "1.5",
+                "settings": {
+                    "WadCfg": {
+                        "DiagnosticMonitorConfiguration": {
+                            "overallQuotaInMB": "50000",
+                            "EtwProviders": {
+                                "EtwEventSourceProviderConfiguration": [
+                                    {
+                                        "provider": "Microsoft-ServiceFabric-Actors",
+                                        "scheduledTransferKeywordFilter": "1",
+                                        "scheduledTransferPeriod": "PT5M",
+                                        "DefaultEvents": {
+                                            "eventDestination": "ServiceFabricReliableActorEventTable"
+                                        }
+                                    },
+                                    {
+                                        "provider": "Microsoft-ServiceFabric-Services",
+                                        "scheduledTransferPeriod": "PT5M",
+                                        "DefaultEvents": {
+                                            "eventDestination": "ServiceFabricReliableServiceEventTable"
+                                        }
+                                    }
+                                ],
+                                "EtwManifestProviderConfiguration": [
+                                    {
+                                        "provider": "cbd93bc2-71e5-4566-b3a7-595d8eeca6e8",
+                                        "scheduledTransferLogLevelFilter": "Information",
+                                        "scheduledTransferKeywordFilter": "4611686018427387904",
+                                        "scheduledTransferPeriod": "PT5M",
+                                        "DefaultEvents": {
+                                            "eventDestination": "ServiceFabricSystemEventTable"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "StorageAccount": "sfdiagmayaprod01"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Compute/virtualMachineScaleSets/virtualMachines/extensions",
+            "apiVersion": "2019-07-01",
+            "name": "[concat(parameters('virtualMachineScaleSets_mayabe_name'), '/3/VMDiagnosticsVmExt_vmNodeType1Name')]",
+            "location": "westeurope",
+            "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachineScaleSets/virtualMachines', parameters('virtualMachineScaleSets_mayabe_name'), '3')]",
+                "[resourceId('Microsoft.Compute/virtualMachineScaleSets', parameters('virtualMachineScaleSets_mayabe_name'))]"
+            ],
+            "properties": {
+                "autoUpgradeMinorVersion": true,
+                "publisher": "Microsoft.Azure.Diagnostics",
+                "type": "IaaSDiagnostics",
+                "typeHandlerVersion": "1.5",
+                "settings": {
+                    "WadCfg": {
+                        "DiagnosticMonitorConfiguration": {
+                            "overallQuotaInMB": "50000",
+                            "EtwProviders": {
+                                "EtwEventSourceProviderConfiguration": [
+                                    {
+                                        "provider": "Microsoft-ServiceFabric-Actors",
+                                        "scheduledTransferKeywordFilter": "1",
+                                        "scheduledTransferPeriod": "PT5M",
+                                        "DefaultEvents": {
+                                            "eventDestination": "ServiceFabricReliableActorEventTable"
+                                        }
+                                    },
+                                    {
+                                        "provider": "Microsoft-ServiceFabric-Services",
+                                        "scheduledTransferPeriod": "PT5M",
+                                        "DefaultEvents": {
+                                            "eventDestination": "ServiceFabricReliableServiceEventTable"
+                                        }
+                                    }
+                                ],
+                                "EtwManifestProviderConfiguration": [
+                                    {
+                                        "provider": "cbd93bc2-71e5-4566-b3a7-595d8eeca6e8",
+                                        "scheduledTransferLogLevelFilter": "Information",
+                                        "scheduledTransferKeywordFilter": "4611686018427387904",
+                                        "scheduledTransferPeriod": "PT5M",
+                                        "DefaultEvents": {
+                                            "eventDestination": "ServiceFabricSystemEventTable"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "StorageAccount": "sfdiagmayaprod01"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Compute/virtualMachineScaleSets/virtualMachines/extensions",
+            "apiVersion": "2019-07-01",
+            "name": "[concat(parameters('virtualMachineScaleSets_mayabe_name'), '/4/VMDiagnosticsVmExt_vmNodeType1Name')]",
+            "location": "westeurope",
+            "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachineScaleSets/virtualMachines', parameters('virtualMachineScaleSets_mayabe_name'), '4')]",
+                "[resourceId('Microsoft.Compute/virtualMachineScaleSets', parameters('virtualMachineScaleSets_mayabe_name'))]"
+            ],
+            "properties": {
+                "autoUpgradeMinorVersion": true,
+                "publisher": "Microsoft.Azure.Diagnostics",
+                "type": "IaaSDiagnostics",
+                "typeHandlerVersion": "1.5",
+                "settings": {
+                    "WadCfg": {
+                        "DiagnosticMonitorConfiguration": {
+                            "overallQuotaInMB": "50000",
+                            "EtwProviders": {
+                                "EtwEventSourceProviderConfiguration": [
+                                    {
+                                        "provider": "Microsoft-ServiceFabric-Actors",
+                                        "scheduledTransferKeywordFilter": "1",
+                                        "scheduledTransferPeriod": "PT5M",
+                                        "DefaultEvents": {
+                                            "eventDestination": "ServiceFabricReliableActorEventTable"
+                                        }
+                                    },
+                                    {
+                                        "provider": "Microsoft-ServiceFabric-Services",
+                                        "scheduledTransferPeriod": "PT5M",
+                                        "DefaultEvents": {
+                                            "eventDestination": "ServiceFabricReliableServiceEventTable"
+                                        }
+                                    }
+                                ],
+                                "EtwManifestProviderConfiguration": [
+                                    {
+                                        "provider": "cbd93bc2-71e5-4566-b3a7-595d8eeca6e8",
+                                        "scheduledTransferLogLevelFilter": "Information",
+                                        "scheduledTransferKeywordFilter": "4611686018427387904",
+                                        "scheduledTransferPeriod": "PT5M",
+                                        "DefaultEvents": {
+                                            "eventDestination": "ServiceFabricSystemEventTable"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "StorageAccount": "sfdiagmayaprod01"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
+            "apiVersion": "2019-06-01",
+            "name": "[concat(parameters('storageAccounts_sflogsmayaprod01_name'), '/default/fabriccounters-3d1d962b-0295-4502-a280-4c4d78dd85fa')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('storageAccounts_sflogsmayaprod01_name'), 'default')]",
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_sflogsmayaprod01_name'))]"
+            ],
+            "properties": {
+                "publicAccess": "None"
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
+            "apiVersion": "2019-06-01",
+            "name": "[concat(parameters('storageAccounts_sflogsmayaprod01_name'), '/default/fabriccrashdumps-3d1d962b-0295-4502-a280-4c4d78dd85fa')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('storageAccounts_sflogsmayaprod01_name'), 'default')]",
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_sflogsmayaprod01_name'))]"
+            ],
+            "properties": {
+                "publicAccess": "None"
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
+            "apiVersion": "2019-06-01",
+            "name": "[concat(parameters('storageAccounts_sflogsmayaprod01_name'), '/default/fabriclogs-3d1d962b-0295-4502-a280-4c4d78dd85fa')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('storageAccounts_sflogsmayaprod01_name'), 'default')]",
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_sflogsmayaprod01_name'))]"
+            ],
+            "properties": {
+                "publicAccess": "None"
+            }
+        },
+        {
+            "type": "Microsoft.Compute/virtualMachineScaleSets/virtualMachines",
+            "apiVersion": "2019-07-01",
+            "name": "[concat(parameters('virtualMachineScaleSets_mayabe_name'), '/0')]",
+            "location": "westeurope",
+            "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachineScaleSets', parameters('virtualMachineScaleSets_mayabe_name'))]",
+                "[resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayabe_name'))]",
+                "[resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_maya_prod_sf_be_LB_name'))]"
+            ],
+            "tags": {
+                "resourceType": "Service Fabric",
+                "clusterName": "maya-prod-sf"
+            },
+            "sku": {
+                "name": "Standard_D1_v2",
+                "tier": "Standard"
+            },
+            "properties": {
+                "networkProfileConfiguration": {
+                    "networkInterfaceConfigurations": [
+                        {
+                            "name": "NIC-maya-prod-sf-1",
+                            "properties": {
+                                "primary": true,
+                                "enableAcceleratedNetworking": false,
+                                "dnsSettings": {
+                                    "dnsServers": []
+                                },
+                                "enableIPForwarding": false,
+                                "ipConfigurations": [
+                                    {
+                                        "name": "NIC-maya-prod-sf-1",
+                                        "properties": {
+                                            "subnet": {
+                                                "id": "[concat(parameters('virtualNetworks_maya_prod_vnet_externalid'), '/subnets/sf-be-subnet')]"
+                                            },
+                                            "privateIPAddressVersion": "IPv4",
+                                            "loadBalancerBackendAddressPools": [
+                                                {
+                                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayabe_name')), '/backendAddressPools/LoadBalancerBEAddressPool')]"
+                                                },
+                                                {
+                                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_maya_prod_sf_be_LB_name')), '/backendAddressPools/SF-BackEnd-Pool')]"
+                                                }
+                                            ],
+                                            "applicationGatewayBackendAddressPools": [
+                                                {
+                                                    "id": "[concat(parameters('applicationGateways_maya_prod_waf01_externalid'), '/backendAddressPools/SF-BackEnd')]"
+                                                }
+                                            ],
+                                            "loadBalancerInboundNatPools": [
+                                                {
+                                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayabe_name')), '/inboundNatPools/LoadBalancerBEAddressNatPool')]"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                "hardwareProfile": {},
+                "storageProfile": {
+                    "imageReference": {
+                        "publisher": "MicrosoftWindowsServer",
+                        "offer": "WindowsServer",
+                        "sku": "2016-Datacenter",
+                        "version": "latest"
+                    },
+                    "osDisk": {
+                        "osType": "Windows",
+                        "name": "mayabe_mayabe_0_OsDisk_1_0d60048d5ecd4df884f3f3f0cefecc0a",
+                        "createOption": "FromImage",
+                        "caching": "ReadOnly",
+                        "managedDisk": {
+                            "storageAccountType": "Standard_LRS",
+                            "id": "[parameters('disks_mayabe_mayabe_0_OsDisk_1_0d60048d5ecd4df884f3f3f0cefecc0a_externalid')]"
+                        },
+                        "diskSizeGB": 127
+                    },
+                    "dataDisks": []
+                },
+                "osProfile": {
+                    "computerName": "mayabe000000",
+                    "adminUsername": "SFAdmin",
+                    "windowsConfiguration": {
+                        "provisionVMAgent": true,
+                        "enableAutomaticUpdates": true
+                    },
+                    "secrets": [
+                        {
+                            "sourceVault": {
+                                "id": "[parameters('vaults_maya_prod_kv_externalid')]"
+                            },
+                            "vaultCertificates": [
+                                {
+                                    "certificateUrl": "https://maya-prod-kv.vault.azure.net/secrets/sf-prod-cert/fcd3360b6e2b459ea23a747e6884d6c9",
+                                    "certificateStore": "My"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[concat(resourceId('Microsoft.Compute/virtualMachineScaleSets/virtualMachines', parameters('virtualMachineScaleSets_mayabe_name'), '0'), '/networkInterfaces/NIC-maya-prod-sf-1')]"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Compute/virtualMachineScaleSets/virtualMachines",
+            "apiVersion": "2019-07-01",
+            "name": "[concat(parameters('virtualMachineScaleSets_mayafe_name'), '/0')]",
+            "location": "westeurope",
+            "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachineScaleSets', parameters('virtualMachineScaleSets_mayafe_name'))]",
+                "[resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayafe_name'))]",
+                "[resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_maya_prod_sf_fe_LB_name'))]"
+            ],
+            "tags": {
+                "resourceType": "Service Fabric",
+                "clusterName": "maya-prod-sf"
+            },
+            "sku": {
+                "name": "Standard_D1_v2",
+                "tier": "Standard"
+            },
+            "properties": {
+                "networkProfileConfiguration": {
+                    "networkInterfaceConfigurations": [
+                        {
+                            "name": "NIC-maya-prod-sf-0",
+                            "properties": {
+                                "primary": true,
+                                "enableAcceleratedNetworking": false,
+                                "dnsSettings": {
+                                    "dnsServers": []
+                                },
+                                "enableIPForwarding": false,
+                                "ipConfigurations": [
+                                    {
+                                        "name": "NIC-maya-prod-sf-0",
+                                        "properties": {
+                                            "subnet": {
+                                                "id": "[concat(parameters('virtualNetworks_maya_prod_vnet_externalid'), '/subnets/sf-fe-subnet')]"
+                                            },
+                                            "privateIPAddressVersion": "IPv4",
+                                            "loadBalancerBackendAddressPools": [
+                                                {
+                                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayafe_name')), '/backendAddressPools/LoadBalancerBEAddressPool')]"
+                                                },
+                                                {
+                                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_maya_prod_sf_fe_LB_name')), '/backendAddressPools/SF-FrontEnd-Pool')]"
+                                                }
+                                            ],
+                                            "loadBalancerInboundNatPools": [
+                                                {
+                                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayafe_name')), '/inboundNatPools/LoadBalancerBEAddressNatPool')]"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                "hardwareProfile": {},
+                "storageProfile": {
+                    "imageReference": {
+                        "publisher": "MicrosoftWindowsServer",
+                        "offer": "WindowsServer",
+                        "sku": "2016-Datacenter",
+                        "version": "latest"
+                    },
+                    "osDisk": {
+                        "osType": "Windows",
+                        "name": "mayafe_mayafe_0_OsDisk_1_517cdb9ef3574ff78354a21e6df64d56",
+                        "createOption": "FromImage",
+                        "caching": "ReadOnly",
+                        "managedDisk": {
+                            "storageAccountType": "Standard_LRS",
+                            "id": "[parameters('disks_mayafe_mayafe_0_OsDisk_1_517cdb9ef3574ff78354a21e6df64d56_externalid')]"
+                        },
+                        "diskSizeGB": 127
+                    },
+                    "dataDisks": []
+                },
+                "osProfile": {
+                    "computerName": "mayafe000000",
+                    "adminUsername": "SFAdmin",
+                    "windowsConfiguration": {
+                        "provisionVMAgent": true,
+                        "enableAutomaticUpdates": true
+                    },
+                    "secrets": [
+                        {
+                            "sourceVault": {
+                                "id": "[parameters('vaults_maya_prod_kv_externalid')]"
+                            },
+                            "vaultCertificates": [
+                                {
+                                    "certificateUrl": "https://maya-prod-kv.vault.azure.net/secrets/sf-prod-cert/fcd3360b6e2b459ea23a747e6884d6c9",
+                                    "certificateStore": "My"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[concat(resourceId('Microsoft.Compute/virtualMachineScaleSets/virtualMachines', parameters('virtualMachineScaleSets_mayafe_name'), '0'), '/networkInterfaces/NIC-maya-prod-sf-0')]"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Compute/virtualMachineScaleSets/virtualMachines",
+            "apiVersion": "2019-07-01",
+            "name": "[concat(parameters('virtualMachineScaleSets_mayabe_name'), '/1')]",
+            "location": "westeurope",
+            "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachineScaleSets', parameters('virtualMachineScaleSets_mayabe_name'))]",
+                "[resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayabe_name'))]",
+                "[resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_maya_prod_sf_be_LB_name'))]"
+            ],
+            "tags": {
+                "resourceType": "Service Fabric",
+                "clusterName": "maya-prod-sf"
+            },
+            "sku": {
+                "name": "Standard_D1_v2",
+                "tier": "Standard"
+            },
+            "properties": {
+                "networkProfileConfiguration": {
+                    "networkInterfaceConfigurations": [
+                        {
+                            "name": "NIC-maya-prod-sf-1",
+                            "properties": {
+                                "primary": true,
+                                "enableAcceleratedNetworking": false,
+                                "dnsSettings": {
+                                    "dnsServers": []
+                                },
+                                "enableIPForwarding": false,
+                                "ipConfigurations": [
+                                    {
+                                        "name": "NIC-maya-prod-sf-1",
+                                        "properties": {
+                                            "subnet": {
+                                                "id": "[concat(parameters('virtualNetworks_maya_prod_vnet_externalid'), '/subnets/sf-be-subnet')]"
+                                            },
+                                            "privateIPAddressVersion": "IPv4",
+                                            "loadBalancerBackendAddressPools": [
+                                                {
+                                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayabe_name')), '/backendAddressPools/LoadBalancerBEAddressPool')]"
+                                                },
+                                                {
+                                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_maya_prod_sf_be_LB_name')), '/backendAddressPools/SF-BackEnd-Pool')]"
+                                                }
+                                            ],
+                                            "applicationGatewayBackendAddressPools": [
+                                                {
+                                                    "id": "[concat(parameters('applicationGateways_maya_prod_waf01_externalid'), '/backendAddressPools/SF-BackEnd')]"
+                                                }
+                                            ],
+                                            "loadBalancerInboundNatPools": [
+                                                {
+                                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayabe_name')), '/inboundNatPools/LoadBalancerBEAddressNatPool')]"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                "hardwareProfile": {},
+                "storageProfile": {
+                    "imageReference": {
+                        "publisher": "MicrosoftWindowsServer",
+                        "offer": "WindowsServer",
+                        "sku": "2016-Datacenter",
+                        "version": "latest"
+                    },
+                    "osDisk": {
+                        "osType": "Windows",
+                        "name": "mayabe_mayabe_1_OsDisk_1_6db65544b895443cb4d48ba434b2cca7",
+                        "createOption": "FromImage",
+                        "caching": "ReadOnly",
+                        "managedDisk": {
+                            "storageAccountType": "Standard_LRS",
+                            "id": "[parameters('disks_mayabe_mayabe_1_OsDisk_1_6db65544b895443cb4d48ba434b2cca7_externalid')]"
+                        },
+                        "diskSizeGB": 127
+                    },
+                    "dataDisks": []
+                },
+                "osProfile": {
+                    "computerName": "mayabe000001",
+                    "adminUsername": "SFAdmin",
+                    "windowsConfiguration": {
+                        "provisionVMAgent": true,
+                        "enableAutomaticUpdates": true
+                    },
+                    "secrets": [
+                        {
+                            "sourceVault": {
+                                "id": "[parameters('vaults_maya_prod_kv_externalid')]"
+                            },
+                            "vaultCertificates": [
+                                {
+                                    "certificateUrl": "https://maya-prod-kv.vault.azure.net/secrets/sf-prod-cert/fcd3360b6e2b459ea23a747e6884d6c9",
+                                    "certificateStore": "My"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[concat(resourceId('Microsoft.Compute/virtualMachineScaleSets/virtualMachines', parameters('virtualMachineScaleSets_mayabe_name'), '1'), '/networkInterfaces/NIC-maya-prod-sf-1')]"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Compute/virtualMachineScaleSets/virtualMachines",
+            "apiVersion": "2019-07-01",
+            "name": "[concat(parameters('virtualMachineScaleSets_mayafe_name'), '/1')]",
+            "location": "westeurope",
+            "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachineScaleSets', parameters('virtualMachineScaleSets_mayafe_name'))]",
+                "[resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayafe_name'))]",
+                "[resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_maya_prod_sf_fe_LB_name'))]"
+            ],
+            "tags": {
+                "resourceType": "Service Fabric",
+                "clusterName": "maya-prod-sf"
+            },
+            "sku": {
+                "name": "Standard_D1_v2",
+                "tier": "Standard"
+            },
+            "properties": {
+                "networkProfileConfiguration": {
+                    "networkInterfaceConfigurations": [
+                        {
+                            "name": "NIC-maya-prod-sf-0",
+                            "properties": {
+                                "primary": true,
+                                "enableAcceleratedNetworking": false,
+                                "dnsSettings": {
+                                    "dnsServers": []
+                                },
+                                "enableIPForwarding": false,
+                                "ipConfigurations": [
+                                    {
+                                        "name": "NIC-maya-prod-sf-0",
+                                        "properties": {
+                                            "subnet": {
+                                                "id": "[concat(parameters('virtualNetworks_maya_prod_vnet_externalid'), '/subnets/sf-fe-subnet')]"
+                                            },
+                                            "privateIPAddressVersion": "IPv4",
+                                            "loadBalancerBackendAddressPools": [
+                                                {
+                                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayafe_name')), '/backendAddressPools/LoadBalancerBEAddressPool')]"
+                                                },
+                                                {
+                                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_maya_prod_sf_fe_LB_name')), '/backendAddressPools/SF-FrontEnd-Pool')]"
+                                                }
+                                            ],
+                                            "loadBalancerInboundNatPools": [
+                                                {
+                                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayafe_name')), '/inboundNatPools/LoadBalancerBEAddressNatPool')]"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                "hardwareProfile": {},
+                "storageProfile": {
+                    "imageReference": {
+                        "publisher": "MicrosoftWindowsServer",
+                        "offer": "WindowsServer",
+                        "sku": "2016-Datacenter",
+                        "version": "latest"
+                    },
+                    "osDisk": {
+                        "osType": "Windows",
+                        "name": "mayafe_mayafe_1_OsDisk_1_1cf82ec0ea904eb183197ecec703cdc4",
+                        "createOption": "FromImage",
+                        "caching": "ReadOnly",
+                        "managedDisk": {
+                            "storageAccountType": "Standard_LRS",
+                            "id": "[parameters('disks_mayafe_mayafe_1_OsDisk_1_1cf82ec0ea904eb183197ecec703cdc4_externalid')]"
+                        },
+                        "diskSizeGB": 127
+                    },
+                    "dataDisks": []
+                },
+                "osProfile": {
+                    "computerName": "mayafe000001",
+                    "adminUsername": "SFAdmin",
+                    "windowsConfiguration": {
+                        "provisionVMAgent": true,
+                        "enableAutomaticUpdates": true
+                    },
+                    "secrets": [
+                        {
+                            "sourceVault": {
+                                "id": "[parameters('vaults_maya_prod_kv_externalid')]"
+                            },
+                            "vaultCertificates": [
+                                {
+                                    "certificateUrl": "https://maya-prod-kv.vault.azure.net/secrets/sf-prod-cert/fcd3360b6e2b459ea23a747e6884d6c9",
+                                    "certificateStore": "My"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[concat(resourceId('Microsoft.Compute/virtualMachineScaleSets/virtualMachines', parameters('virtualMachineScaleSets_mayafe_name'), '1'), '/networkInterfaces/NIC-maya-prod-sf-0')]"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Compute/virtualMachineScaleSets/virtualMachines",
+            "apiVersion": "2019-07-01",
+            "name": "[concat(parameters('virtualMachineScaleSets_mayabe_name'), '/2')]",
+            "location": "westeurope",
+            "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachineScaleSets', parameters('virtualMachineScaleSets_mayabe_name'))]",
+                "[resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayabe_name'))]",
+                "[resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_maya_prod_sf_be_LB_name'))]"
+            ],
+            "tags": {
+                "resourceType": "Service Fabric",
+                "clusterName": "maya-prod-sf"
+            },
+            "sku": {
+                "name": "Standard_D1_v2",
+                "tier": "Standard"
+            },
+            "properties": {
+                "networkProfileConfiguration": {
+                    "networkInterfaceConfigurations": [
+                        {
+                            "name": "NIC-maya-prod-sf-1",
+                            "properties": {
+                                "primary": true,
+                                "enableAcceleratedNetworking": false,
+                                "dnsSettings": {
+                                    "dnsServers": []
+                                },
+                                "enableIPForwarding": false,
+                                "ipConfigurations": [
+                                    {
+                                        "name": "NIC-maya-prod-sf-1",
+                                        "properties": {
+                                            "subnet": {
+                                                "id": "[concat(parameters('virtualNetworks_maya_prod_vnet_externalid'), '/subnets/sf-be-subnet')]"
+                                            },
+                                            "privateIPAddressVersion": "IPv4",
+                                            "loadBalancerBackendAddressPools": [
+                                                {
+                                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayabe_name')), '/backendAddressPools/LoadBalancerBEAddressPool')]"
+                                                },
+                                                {
+                                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_maya_prod_sf_be_LB_name')), '/backendAddressPools/SF-BackEnd-Pool')]"
+                                                }
+                                            ],
+                                            "applicationGatewayBackendAddressPools": [
+                                                {
+                                                    "id": "[concat(parameters('applicationGateways_maya_prod_waf01_externalid'), '/backendAddressPools/SF-BackEnd')]"
+                                                }
+                                            ],
+                                            "loadBalancerInboundNatPools": [
+                                                {
+                                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayabe_name')), '/inboundNatPools/LoadBalancerBEAddressNatPool')]"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                "hardwareProfile": {},
+                "storageProfile": {
+                    "imageReference": {
+                        "publisher": "MicrosoftWindowsServer",
+                        "offer": "WindowsServer",
+                        "sku": "2016-Datacenter",
+                        "version": "latest"
+                    },
+                    "osDisk": {
+                        "osType": "Windows",
+                        "name": "mayabe_mayabe_2_OsDisk_1_52d8124805b64a01adb7b6a2a712eefb",
+                        "createOption": "FromImage",
+                        "caching": "ReadOnly",
+                        "managedDisk": {
+                            "storageAccountType": "Standard_LRS",
+                            "id": "[parameters('disks_mayabe_mayabe_2_OsDisk_1_52d8124805b64a01adb7b6a2a712eefb_externalid')]"
+                        },
+                        "diskSizeGB": 127
+                    },
+                    "dataDisks": []
+                },
+                "osProfile": {
+                    "computerName": "mayabe000002",
+                    "adminUsername": "SFAdmin",
+                    "windowsConfiguration": {
+                        "provisionVMAgent": true,
+                        "enableAutomaticUpdates": true
+                    },
+                    "secrets": [
+                        {
+                            "sourceVault": {
+                                "id": "[parameters('vaults_maya_prod_kv_externalid')]"
+                            },
+                            "vaultCertificates": [
+                                {
+                                    "certificateUrl": "https://maya-prod-kv.vault.azure.net/secrets/sf-prod-cert/fcd3360b6e2b459ea23a747e6884d6c9",
+                                    "certificateStore": "My"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[concat(resourceId('Microsoft.Compute/virtualMachineScaleSets/virtualMachines', parameters('virtualMachineScaleSets_mayabe_name'), '2'), '/networkInterfaces/NIC-maya-prod-sf-1')]"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Compute/virtualMachineScaleSets/virtualMachines",
+            "apiVersion": "2019-07-01",
+            "name": "[concat(parameters('virtualMachineScaleSets_mayafe_name'), '/2')]",
+            "location": "westeurope",
+            "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachineScaleSets', parameters('virtualMachineScaleSets_mayafe_name'))]",
+                "[resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayafe_name'))]",
+                "[resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_maya_prod_sf_fe_LB_name'))]"
+            ],
+            "tags": {
+                "resourceType": "Service Fabric",
+                "clusterName": "maya-prod-sf"
+            },
+            "sku": {
+                "name": "Standard_D1_v2",
+                "tier": "Standard"
+            },
+            "properties": {
+                "networkProfileConfiguration": {
+                    "networkInterfaceConfigurations": [
+                        {
+                            "name": "NIC-maya-prod-sf-0",
+                            "properties": {
+                                "primary": true,
+                                "enableAcceleratedNetworking": false,
+                                "dnsSettings": {
+                                    "dnsServers": []
+                                },
+                                "enableIPForwarding": false,
+                                "ipConfigurations": [
+                                    {
+                                        "name": "NIC-maya-prod-sf-0",
+                                        "properties": {
+                                            "subnet": {
+                                                "id": "[concat(parameters('virtualNetworks_maya_prod_vnet_externalid'), '/subnets/sf-fe-subnet')]"
+                                            },
+                                            "privateIPAddressVersion": "IPv4",
+                                            "loadBalancerBackendAddressPools": [
+                                                {
+                                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayafe_name')), '/backendAddressPools/LoadBalancerBEAddressPool')]"
+                                                },
+                                                {
+                                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_maya_prod_sf_fe_LB_name')), '/backendAddressPools/SF-FrontEnd-Pool')]"
+                                                }
+                                            ],
+                                            "loadBalancerInboundNatPools": [
+                                                {
+                                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayafe_name')), '/inboundNatPools/LoadBalancerBEAddressNatPool')]"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                "hardwareProfile": {},
+                "storageProfile": {
+                    "imageReference": {
+                        "publisher": "MicrosoftWindowsServer",
+                        "offer": "WindowsServer",
+                        "sku": "2016-Datacenter",
+                        "version": "latest"
+                    },
+                    "osDisk": {
+                        "osType": "Windows",
+                        "name": "mayafe_mayafe_2_OsDisk_1_95a05c92bbb041148327ed5325b07f8f",
+                        "createOption": "FromImage",
+                        "caching": "ReadOnly",
+                        "managedDisk": {
+                            "storageAccountType": "Standard_LRS",
+                            "id": "[parameters('disks_mayafe_mayafe_2_OsDisk_1_95a05c92bbb041148327ed5325b07f8f_externalid')]"
+                        },
+                        "diskSizeGB": 127
+                    },
+                    "dataDisks": []
+                },
+                "osProfile": {
+                    "computerName": "mayafe000002",
+                    "adminUsername": "SFAdmin",
+                    "windowsConfiguration": {
+                        "provisionVMAgent": true,
+                        "enableAutomaticUpdates": true
+                    },
+                    "secrets": [
+                        {
+                            "sourceVault": {
+                                "id": "[parameters('vaults_maya_prod_kv_externalid')]"
+                            },
+                            "vaultCertificates": [
+                                {
+                                    "certificateUrl": "https://maya-prod-kv.vault.azure.net/secrets/sf-prod-cert/fcd3360b6e2b459ea23a747e6884d6c9",
+                                    "certificateStore": "My"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[concat(resourceId('Microsoft.Compute/virtualMachineScaleSets/virtualMachines', parameters('virtualMachineScaleSets_mayafe_name'), '2'), '/networkInterfaces/NIC-maya-prod-sf-0')]"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Compute/virtualMachineScaleSets/virtualMachines",
+            "apiVersion": "2019-07-01",
+            "name": "[concat(parameters('virtualMachineScaleSets_mayabe_name'), '/3')]",
+            "location": "westeurope",
+            "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachineScaleSets', parameters('virtualMachineScaleSets_mayabe_name'))]",
+                "[resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayabe_name'))]",
+                "[resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_maya_prod_sf_be_LB_name'))]"
+            ],
+            "tags": {
+                "resourceType": "Service Fabric",
+                "clusterName": "maya-prod-sf"
+            },
+            "sku": {
+                "name": "Standard_D1_v2",
+                "tier": "Standard"
+            },
+            "properties": {
+                "networkProfileConfiguration": {
+                    "networkInterfaceConfigurations": [
+                        {
+                            "name": "NIC-maya-prod-sf-1",
+                            "properties": {
+                                "primary": true,
+                                "enableAcceleratedNetworking": false,
+                                "dnsSettings": {
+                                    "dnsServers": []
+                                },
+                                "enableIPForwarding": false,
+                                "ipConfigurations": [
+                                    {
+                                        "name": "NIC-maya-prod-sf-1",
+                                        "properties": {
+                                            "subnet": {
+                                                "id": "[concat(parameters('virtualNetworks_maya_prod_vnet_externalid'), '/subnets/sf-be-subnet')]"
+                                            },
+                                            "privateIPAddressVersion": "IPv4",
+                                            "loadBalancerBackendAddressPools": [
+                                                {
+                                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayabe_name')), '/backendAddressPools/LoadBalancerBEAddressPool')]"
+                                                },
+                                                {
+                                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_maya_prod_sf_be_LB_name')), '/backendAddressPools/SF-BackEnd-Pool')]"
+                                                }
+                                            ],
+                                            "applicationGatewayBackendAddressPools": [
+                                                {
+                                                    "id": "[concat(parameters('applicationGateways_maya_prod_waf01_externalid'), '/backendAddressPools/SF-BackEnd')]"
+                                                }
+                                            ],
+                                            "loadBalancerInboundNatPools": [
+                                                {
+                                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayabe_name')), '/inboundNatPools/LoadBalancerBEAddressNatPool')]"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                "hardwareProfile": {},
+                "storageProfile": {
+                    "imageReference": {
+                        "publisher": "MicrosoftWindowsServer",
+                        "offer": "WindowsServer",
+                        "sku": "2016-Datacenter",
+                        "version": "latest"
+                    },
+                    "osDisk": {
+                        "osType": "Windows",
+                        "name": "mayabe_mayabe_3_OsDisk_1_4446e8254d3f426884af4c6f92ab77fc",
+                        "createOption": "FromImage",
+                        "caching": "ReadOnly",
+                        "managedDisk": {
+                            "storageAccountType": "Standard_LRS",
+                            "id": "[parameters('disks_mayabe_mayabe_3_OsDisk_1_4446e8254d3f426884af4c6f92ab77fc_externalid')]"
+                        },
+                        "diskSizeGB": 127
+                    },
+                    "dataDisks": []
+                },
+                "osProfile": {
+                    "computerName": "mayabe000003",
+                    "adminUsername": "SFAdmin",
+                    "windowsConfiguration": {
+                        "provisionVMAgent": true,
+                        "enableAutomaticUpdates": true
+                    },
+                    "secrets": [
+                        {
+                            "sourceVault": {
+                                "id": "[parameters('vaults_maya_prod_kv_externalid')]"
+                            },
+                            "vaultCertificates": [
+                                {
+                                    "certificateUrl": "https://maya-prod-kv.vault.azure.net/secrets/sf-prod-cert/fcd3360b6e2b459ea23a747e6884d6c9",
+                                    "certificateStore": "My"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[concat(resourceId('Microsoft.Compute/virtualMachineScaleSets/virtualMachines', parameters('virtualMachineScaleSets_mayabe_name'), '3'), '/networkInterfaces/NIC-maya-prod-sf-1')]"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Compute/virtualMachineScaleSets/virtualMachines",
+            "apiVersion": "2019-07-01",
+            "name": "[concat(parameters('virtualMachineScaleSets_mayabe_name'), '/4')]",
+            "location": "westeurope",
+            "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachineScaleSets', parameters('virtualMachineScaleSets_mayabe_name'))]",
+                "[resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayabe_name'))]",
+                "[resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_maya_prod_sf_be_LB_name'))]"
+            ],
+            "tags": {
+                "resourceType": "Service Fabric",
+                "clusterName": "maya-prod-sf"
+            },
+            "sku": {
+                "name": "Standard_D1_v2",
+                "tier": "Standard"
+            },
+            "properties": {
+                "networkProfileConfiguration": {
+                    "networkInterfaceConfigurations": [
+                        {
+                            "name": "NIC-maya-prod-sf-1",
+                            "properties": {
+                                "primary": true,
+                                "enableAcceleratedNetworking": false,
+                                "dnsSettings": {
+                                    "dnsServers": []
+                                },
+                                "enableIPForwarding": false,
+                                "ipConfigurations": [
+                                    {
+                                        "name": "NIC-maya-prod-sf-1",
+                                        "properties": {
+                                            "subnet": {
+                                                "id": "[concat(parameters('virtualNetworks_maya_prod_vnet_externalid'), '/subnets/sf-be-subnet')]"
+                                            },
+                                            "privateIPAddressVersion": "IPv4",
+                                            "loadBalancerBackendAddressPools": [
+                                                {
+                                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayabe_name')), '/backendAddressPools/LoadBalancerBEAddressPool')]"
+                                                },
+                                                {
+                                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_maya_prod_sf_be_LB_name')), '/backendAddressPools/SF-BackEnd-Pool')]"
+                                                }
+                                            ],
+                                            "applicationGatewayBackendAddressPools": [
+                                                {
+                                                    "id": "[concat(parameters('applicationGateways_maya_prod_waf01_externalid'), '/backendAddressPools/SF-BackEnd')]"
+                                                }
+                                            ],
+                                            "loadBalancerInboundNatPools": [
+                                                {
+                                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayabe_name')), '/inboundNatPools/LoadBalancerBEAddressNatPool')]"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                "hardwareProfile": {},
+                "storageProfile": {
+                    "imageReference": {
+                        "publisher": "MicrosoftWindowsServer",
+                        "offer": "WindowsServer",
+                        "sku": "2016-Datacenter",
+                        "version": "latest"
+                    },
+                    "osDisk": {
+                        "osType": "Windows",
+                        "name": "mayabe_mayabe_4_OsDisk_1_2a482d21f3dc46abb5a35af723124b2a",
+                        "createOption": "FromImage",
+                        "caching": "ReadOnly",
+                        "managedDisk": {
+                            "storageAccountType": "Standard_LRS",
+                            "id": "[parameters('disks_mayabe_mayabe_4_OsDisk_1_2a482d21f3dc46abb5a35af723124b2a_externalid')]"
+                        },
+                        "diskSizeGB": 127
+                    },
+                    "dataDisks": []
+                },
+                "osProfile": {
+                    "computerName": "mayabe000004",
+                    "adminUsername": "SFAdmin",
+                    "windowsConfiguration": {
+                        "provisionVMAgent": true,
+                        "enableAutomaticUpdates": true
+                    },
+                    "secrets": [
+                        {
+                            "sourceVault": {
+                                "id": "[parameters('vaults_maya_prod_kv_externalid')]"
+                            },
+                            "vaultCertificates": [
+                                {
+                                    "certificateUrl": "https://maya-prod-kv.vault.azure.net/secrets/sf-prod-cert/fcd3360b6e2b459ea23a747e6884d6c9",
+                                    "certificateStore": "My"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[concat(resourceId('Microsoft.Compute/virtualMachineScaleSets/virtualMachines', parameters('virtualMachineScaleSets_mayabe_name'), '4'), '/networkInterfaces/NIC-maya-prod-sf-1')]"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Network/loadBalancers",
+            "apiVersion": "2020-03-01",
+            "name": "[parameters('loadBalancers_maya_prod_sf_fe_LB_name')]",
+            "location": "westeurope",
+            "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachineScaleSets/virtualMachines', parameters('virtualMachineScaleSets_mayafe_name'), '0')]",
+                "[resourceId('Microsoft.Compute/virtualMachineScaleSets/virtualMachines', parameters('virtualMachineScaleSets_mayafe_name'), '1')]",
+                "[resourceId('Microsoft.Compute/virtualMachineScaleSets/virtualMachines', parameters('virtualMachineScaleSets_mayafe_name'), '2')]"
+            ],
+            "sku": {
+                "name": "Basic"
+            },
+            "properties": {
+                "frontendIPConfigurations": [
+                    {
+                        "name": "LoadBalancerFrontEnd",
+                        "properties": {
+                            "privateIPAddress": "10.1.2.103",
+                            "privateIPAllocationMethod": "Static",
+                            "subnet": {
+                                "id": "[concat(parameters('virtualNetworks_maya_prod_vnet_externalid'), '/subnets/sf-fe-subnet')]"
+                            },
+                            "privateIPAddressVersion": "IPv4"
+                        }
+                    },
+                    {
+                        "name": "maya-prod-sffe-lb-ip01",
+                        "properties": {
+                            "privateIPAddress": "10.1.2.100",
+                            "privateIPAllocationMethod": "Static",
+                            "subnet": {
+                                "id": "[concat(parameters('virtualNetworks_maya_prod_vnet_externalid'), '/subnets/sf-fe-subnet')]"
+                            },
+                            "privateIPAddressVersion": "IPv4"
+                        }
+                    }
+                ],
+                "backendAddressPools": [
+                    {
+                        "name": "SF-FrontEnd-Pool",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "backendIPConfigurations": [
+                                {
+                                    "id": "[concat(resourceId('Microsoft.Compute/virtualMachineScaleSets/virtualMachines', parameters('virtualMachineScaleSets_mayafe_name'), '0'), '/networkInterfaces/NIC-maya-prod-sf-0/ipConfigurations/NIC-maya-prod-sf-0')]"
+                                },
+                                {
+                                    "id": "[concat(resourceId('Microsoft.Compute/virtualMachineScaleSets/virtualMachines', parameters('virtualMachineScaleSets_mayafe_name'), '1'), '/networkInterfaces/NIC-maya-prod-sf-0/ipConfigurations/NIC-maya-prod-sf-0')]"
+                                },
+                                {
+                                    "id": "[concat(resourceId('Microsoft.Compute/virtualMachineScaleSets/virtualMachines', parameters('virtualMachineScaleSets_mayafe_name'), '2'), '/networkInterfaces/NIC-maya-prod-sf-0/ipConfigurations/NIC-maya-prod-sf-0')]"
+                                }
+                            ],
+                            "loadBalancingRules": [
+                                {
+                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_maya_prod_sf_fe_LB_name')), '/loadBalancingRules/LBHttpRule')]"
+                                },
+                                {
+                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_maya_prod_sf_fe_LB_name')), '/loadBalancingRules/LBRule')]"
+                                },
+                                {
+                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_maya_prod_sf_fe_LB_name')), '/loadBalancingRules/M01-Rule01')]"
+                                },
+                                {
+                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_maya_prod_sf_fe_LB_name')), '/loadBalancingRules/M02-Rule01')]"
+                                },
+                                {
+                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_maya_prod_sf_fe_LB_name')), '/loadBalancingRules/M04-Rule01')]"
+                                },
+                                {
+                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_maya_prod_sf_fe_LB_name')), '/loadBalancingRules/M03-Rule01')]"
+                                },
+                                {
+                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_maya_prod_sf_fe_LB_name')), '/loadBalancingRules/M05-Rule01')]"
+                                }
+                            ],
+                            "backendLoadBalancerIPAddressValues": {}
+                        }
+                    }
+                ],
+                "loadBalancingRules": [
+                    {
+                        "name": "LBHttpRule",
+                        "properties": {
+                            "frontendIPConfiguration": {
+                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_maya_prod_sf_fe_LB_name')), '/frontendIPConfigurations/LoadBalancerFrontEnd')]"
+                            },
+                            "frontendPort": 19080,
+                            "backendPort": 19080,
+                            "enableFloatingIP": false,
+                            "idleTimeoutInMinutes": 4,
+                            "protocol": "Tcp",
+                            "enableTcpReset": false,
+                            "loadDistribution": "Default",
+                            "backendAddressPool": {
+                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_maya_prod_sf_fe_LB_name')), '/backendAddressPools/SF-FrontEnd-Pool')]"
+                            },
+                            "probe": {
+                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_maya_prod_sf_fe_LB_name')), '/probes/FabricHttpGatewayProbe')]"
+                            }
+                        }
+                    },
+                    {
+                        "name": "LBRule",
+                        "properties": {
+                            "frontendIPConfiguration": {
+                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_maya_prod_sf_fe_LB_name')), '/frontendIPConfigurations/LoadBalancerFrontEnd')]"
+                            },
+                            "frontendPort": 19000,
+                            "backendPort": 19000,
+                            "enableFloatingIP": false,
+                            "idleTimeoutInMinutes": 4,
+                            "protocol": "Tcp",
+                            "enableTcpReset": false,
+                            "loadDistribution": "Default",
+                            "backendAddressPool": {
+                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_maya_prod_sf_fe_LB_name')), '/backendAddressPools/SF-FrontEnd-Pool')]"
+                            },
+                            "probe": {
+                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_maya_prod_sf_fe_LB_name')), '/probes/FabricGatewayProbe')]"
+                            }
+                        }
+                    },
+                    {
+                        "name": "M01-Rule01",
+                        "properties": {
+                            "frontendIPConfiguration": {
+                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_maya_prod_sf_fe_LB_name')), '/frontendIPConfigurations/maya-prod-sffe-lb-ip01')]"
+                            },
+                            "frontendPort": 8354,
+                            "backendPort": 8354,
+                            "enableFloatingIP": false,
+                            "idleTimeoutInMinutes": 4,
+                            "protocol": "Tcp",
+                            "enableTcpReset": false,
+                            "loadDistribution": "Default",
+                            "backendAddressPool": {
+                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_maya_prod_sf_fe_LB_name')), '/backendAddressPools/SF-FrontEnd-Pool')]"
+                            },
+                            "probe": {
+                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_maya_prod_sf_fe_LB_name')), '/probes/M01-Probe')]"
+                            }
+                        }
+                    },
+                    {
+                        "name": "M02-Rule01",
+                        "properties": {
+                            "frontendIPConfiguration": {
+                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_maya_prod_sf_fe_LB_name')), '/frontendIPConfigurations/maya-prod-sffe-lb-ip01')]"
+                            },
+                            "frontendPort": 8790,
+                            "backendPort": 8790,
+                            "enableFloatingIP": false,
+                            "idleTimeoutInMinutes": 4,
+                            "protocol": "Tcp",
+                            "enableTcpReset": false,
+                            "loadDistribution": "Default",
+                            "backendAddressPool": {
+                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_maya_prod_sf_fe_LB_name')), '/backendAddressPools/SF-FrontEnd-Pool')]"
+                            },
+                            "probe": {
+                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_maya_prod_sf_fe_LB_name')), '/probes/M02-Probe')]"
+                            }
+                        }
+                    },
+                    {
+                        "name": "M04-Rule01",
+                        "properties": {
+                            "frontendIPConfiguration": {
+                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_maya_prod_sf_fe_LB_name')), '/frontendIPConfigurations/maya-prod-sffe-lb-ip01')]"
+                            },
+                            "frontendPort": 8768,
+                            "backendPort": 8768,
+                            "enableFloatingIP": false,
+                            "idleTimeoutInMinutes": 4,
+                            "protocol": "Tcp",
+                            "enableTcpReset": false,
+                            "loadDistribution": "SourceIPProtocol",
+                            "backendAddressPool": {
+                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_maya_prod_sf_fe_LB_name')), '/backendAddressPools/SF-FrontEnd-Pool')]"
+                            },
+                            "probe": {
+                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_maya_prod_sf_fe_LB_name')), '/probes/M04-Probe')]"
+                            }
+                        }
+                    },
+                    {
+                        "name": "M03-Rule01",
+                        "properties": {
+                            "frontendIPConfiguration": {
+                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_maya_prod_sf_fe_LB_name')), '/frontendIPConfigurations/maya-prod-sffe-lb-ip01')]"
+                            },
+                            "frontendPort": 8135,
+                            "backendPort": 8135,
+                            "enableFloatingIP": false,
+                            "idleTimeoutInMinutes": 4,
+                            "protocol": "Tcp",
+                            "enableTcpReset": false,
+                            "loadDistribution": "Default",
+                            "backendAddressPool": {
+                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_maya_prod_sf_fe_LB_name')), '/backendAddressPools/SF-FrontEnd-Pool')]"
+                            },
+                            "probe": {
+                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_maya_prod_sf_fe_LB_name')), '/probes/M03-Probe')]"
+                            }
+                        }
+                    },
+                    {
+                        "name": "M05-Rule01",
+                        "properties": {
+                            "frontendIPConfiguration": {
+                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_maya_prod_sf_fe_LB_name')), '/frontendIPConfigurations/maya-prod-sffe-lb-ip01')]"
+                            },
+                            "frontendPort": 8495,
+                            "backendPort": 8495,
+                            "enableFloatingIP": false,
+                            "idleTimeoutInMinutes": 4,
+                            "protocol": "Tcp",
+                            "enableTcpReset": false,
+                            "loadDistribution": "SourceIPProtocol",
+                            "backendAddressPool": {
+                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_maya_prod_sf_fe_LB_name')), '/backendAddressPools/SF-FrontEnd-Pool')]"
+                            },
+                            "probe": {
+                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_maya_prod_sf_fe_LB_name')), '/probes/M05-Probe')]"
+                            }
+                        }
+                    }
+                ],
+                "probes": [
+                    {
+                        "name": "FabricGatewayProbe",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "port": 19000,
+                            "intervalInSeconds": 5,
+                            "numberOfProbes": 2
+                        }
+                    },
+                    {
+                        "name": "FabricHttpGatewayProbe",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "port": 19080,
+                            "intervalInSeconds": 5,
+                            "numberOfProbes": 2
+                        }
+                    },
+                    {
+                        "name": "M01-Probe",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "port": 8354,
+                            "intervalInSeconds": 5,
+                            "numberOfProbes": 2
+                        }
+                    },
+                    {
+                        "name": "M02-Probe",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "port": 8790,
+                            "intervalInSeconds": 5,
+                            "numberOfProbes": 2
+                        }
+                    },
+                    {
+                        "name": "M03-Probe",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "port": 8135,
+                            "intervalInSeconds": 5,
+                            "numberOfProbes": 2
+                        }
+                    },
+                    {
+                        "name": "M05-Probe",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "port": 8495,
+                            "intervalInSeconds": 5,
+                            "numberOfProbes": 2
+                        }
+                    },
+                    {
+                        "name": "M04-Probe",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "port": 8768,
+                            "intervalInSeconds": 5,
+                            "numberOfProbes": 2
+                        }
+                    }
+                ],
+                "inboundNatRules": [],
+                "inboundNatPools": []
+            }
+        },
+        {
+            "type": "Microsoft.Network/loadBalancers",
+            "apiVersion": "2020-03-01",
+            "name": "[parameters('loadBalancers_LB_maya_prod_sf_mayafe_name')]",
+            "location": "westeurope",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_LBIP_maya_prod_sf_mayafe_name'))]",
+                "[resourceId('Microsoft.Compute/virtualMachineScaleSets/virtualMachines', parameters('virtualMachineScaleSets_mayafe_name'), '0')]",
+                "[resourceId('Microsoft.Compute/virtualMachineScaleSets/virtualMachines', parameters('virtualMachineScaleSets_mayafe_name'), '1')]",
+                "[resourceId('Microsoft.Compute/virtualMachineScaleSets/virtualMachines', parameters('virtualMachineScaleSets_mayafe_name'), '2')]"
+            ],
+            "tags": {
+                "resourceType": "Service Fabric",
+                "clusterName": "maya-prod-sf"
+            },
+            "sku": {
+                "name": "Basic"
+            },
+            "properties": {
+                "frontendIPConfigurations": [
+                    {
+                        "name": "LoadBalancerIPConfig",
+                        "properties": {
+                            "privateIPAllocationMethod": "Dynamic",
+                            "publicIPAddress": {
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_LBIP_maya_prod_sf_mayafe_name'))]"
+                            },
+                            "privateIPAddressVersion": "IPv4"
+                        }
+                    }
+                ],
+                "backendAddressPools": [
+                    {
+                        "name": "LoadBalancerBEAddressPool",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "backendIPConfigurations": [
+                                {
+                                    "id": "[concat(resourceId('Microsoft.Compute/virtualMachineScaleSets/virtualMachines', parameters('virtualMachineScaleSets_mayafe_name'), '0'), '/networkInterfaces/NIC-maya-prod-sf-0/ipConfigurations/NIC-maya-prod-sf-0')]"
+                                },
+                                {
+                                    "id": "[concat(resourceId('Microsoft.Compute/virtualMachineScaleSets/virtualMachines', parameters('virtualMachineScaleSets_mayafe_name'), '1'), '/networkInterfaces/NIC-maya-prod-sf-0/ipConfigurations/NIC-maya-prod-sf-0')]"
+                                },
+                                {
+                                    "id": "[concat(resourceId('Microsoft.Compute/virtualMachineScaleSets/virtualMachines', parameters('virtualMachineScaleSets_mayafe_name'), '2'), '/networkInterfaces/NIC-maya-prod-sf-0/ipConfigurations/NIC-maya-prod-sf-0')]"
+                                }
+                            ],
+                            "loadBalancingRules": [
+                                {
+                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayafe_name')), '/loadBalancingRules/LBRule')]"
+                                },
+                                {
+                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayafe_name')), '/loadBalancingRules/LBHttpRule')]"
+                                }
+                            ],
+                            "backendLoadBalancerIPAddressValues": {}
+                        }
+                    }
+                ],
+                "loadBalancingRules": [
+                    {
+                        "name": "LBRule",
+                        "properties": {
+                            "frontendIPConfiguration": {
+                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayafe_name')), '/frontendIPConfigurations/LoadBalancerIPConfig')]"
+                            },
+                            "frontendPort": 19000,
+                            "backendPort": 19000,
+                            "enableFloatingIP": false,
+                            "idleTimeoutInMinutes": 5,
+                            "protocol": "Tcp",
+                            "enableTcpReset": false,
+                            "loadDistribution": "Default",
+                            "backendAddressPool": {
+                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayafe_name')), '/backendAddressPools/LoadBalancerBEAddressPool')]"
+                            },
+                            "probe": {
+                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayafe_name')), '/probes/FabricGatewayProbe')]"
+                            }
+                        }
+                    },
+                    {
+                        "name": "LBHttpRule",
+                        "properties": {
+                            "frontendIPConfiguration": {
+                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayafe_name')), '/frontendIPConfigurations/LoadBalancerIPConfig')]"
+                            },
+                            "frontendPort": 19080,
+                            "backendPort": 19080,
+                            "enableFloatingIP": false,
+                            "idleTimeoutInMinutes": 5,
+                            "protocol": "Tcp",
+                            "enableTcpReset": false,
+                            "loadDistribution": "Default",
+                            "backendAddressPool": {
+                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayafe_name')), '/backendAddressPools/LoadBalancerBEAddressPool')]"
+                            },
+                            "probe": {
+                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayafe_name')), '/probes/FabricHttpGatewayProbe')]"
+                            }
+                        }
+                    }
+                ],
+                "probes": [
+                    {
+                        "name": "FabricGatewayProbe",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "port": 19000,
+                            "intervalInSeconds": 5,
+                            "numberOfProbes": 2
+                        }
+                    },
+                    {
+                        "name": "FabricHttpGatewayProbe",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "port": 19080,
+                            "intervalInSeconds": 5,
+                            "numberOfProbes": 2
+                        }
+                    }
+                ],
+                "inboundNatRules": [
+                    {
+                        "name": "LoadBalancerBEAddressNatPool.0",
+                        "properties": {
+                            "frontendIPConfiguration": {
+                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayafe_name')), '/frontendIPConfigurations/LoadBalancerIPConfig')]"
+                            },
+                            "frontendPort": 3389,
+                            "backendPort": 3389,
+                            "enableFloatingIP": false,
+                            "idleTimeoutInMinutes": 4,
+                            "protocol": "Tcp",
+                            "enableTcpReset": false
+                        }
+                    },
+                    {
+                        "name": "LoadBalancerBEAddressNatPool.1",
+                        "properties": {
+                            "frontendIPConfiguration": {
+                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayafe_name')), '/frontendIPConfigurations/LoadBalancerIPConfig')]"
+                            },
+                            "frontendPort": 3390,
+                            "backendPort": 3389,
+                            "enableFloatingIP": false,
+                            "idleTimeoutInMinutes": 4,
+                            "protocol": "Tcp",
+                            "enableTcpReset": false
+                        }
+                    },
+                    {
+                        "name": "LoadBalancerBEAddressNatPool.2",
+                        "properties": {
+                            "frontendIPConfiguration": {
+                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayafe_name')), '/frontendIPConfigurations/LoadBalancerIPConfig')]"
+                            },
+                            "frontendPort": 3391,
+                            "backendPort": 3389,
+                            "enableFloatingIP": false,
+                            "idleTimeoutInMinutes": 4,
+                            "protocol": "Tcp",
+                            "enableTcpReset": false
+                        }
+                    }
+                ],
+                "inboundNatPools": [
+                    {
+                        "name": "LoadBalancerBEAddressNatPool",
+                        "properties": {
+                            "frontendPortRangeStart": 3389,
+                            "frontendPortRangeEnd": 4500,
+                            "backendPort": 3389,
+                            "protocol": "Tcp",
+                            "idleTimeoutInMinutes": 4,
+                            "enableFloatingIP": false,
+                            "enableTcpReset": false,
+                            "frontendIPConfiguration": {
+                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayafe_name')), '/frontendIPConfigurations/LoadBalancerIPConfig')]"
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "type": "Microsoft.Network/loadBalancers",
+            "apiVersion": "2020-03-01",
+            "name": "[parameters('loadBalancers_maya_prod_sf_be_LB_name')]",
+            "location": "westeurope",
+            "dependsOn": [
+                "[resourceId('Microsoft.Compute/virtualMachineScaleSets/virtualMachines', parameters('virtualMachineScaleSets_mayabe_name'), '0')]",
+                "[resourceId('Microsoft.Compute/virtualMachineScaleSets/virtualMachines', parameters('virtualMachineScaleSets_mayabe_name'), '1')]",
+                "[resourceId('Microsoft.Compute/virtualMachineScaleSets/virtualMachines', parameters('virtualMachineScaleSets_mayabe_name'), '2')]",
+                "[resourceId('Microsoft.Compute/virtualMachineScaleSets/virtualMachines', parameters('virtualMachineScaleSets_mayabe_name'), '3')]",
+                "[resourceId('Microsoft.Compute/virtualMachineScaleSets/virtualMachines', parameters('virtualMachineScaleSets_mayabe_name'), '4')]"
+            ],
+            "sku": {
+                "name": "Basic"
+            },
+            "properties": {
+                "frontendIPConfigurations": [
+                    {
+                        "name": "LoadBalancerFrontEnd",
+                        "properties": {
+                            "privateIPAddress": "10.1.3.100",
+                            "privateIPAllocationMethod": "Static",
+                            "subnet": {
+                                "id": "[concat(parameters('virtualNetworks_maya_prod_vnet_externalid'), '/subnets/sf-be-subnet')]"
+                            },
+                            "privateIPAddressVersion": "IPv4"
+                        }
+                    }
+                ],
+                "backendAddressPools": [
+                    {
+                        "name": "SF-BackEnd-Pool",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "backendIPConfigurations": [
+                                {
+                                    "id": "[concat(resourceId('Microsoft.Compute/virtualMachineScaleSets/virtualMachines', parameters('virtualMachineScaleSets_mayabe_name'), '0'), '/networkInterfaces/NIC-maya-prod-sf-1/ipConfigurations/NIC-maya-prod-sf-1')]"
+                                },
+                                {
+                                    "id": "[concat(resourceId('Microsoft.Compute/virtualMachineScaleSets/virtualMachines', parameters('virtualMachineScaleSets_mayabe_name'), '1'), '/networkInterfaces/NIC-maya-prod-sf-1/ipConfigurations/NIC-maya-prod-sf-1')]"
+                                },
+                                {
+                                    "id": "[concat(resourceId('Microsoft.Compute/virtualMachineScaleSets/virtualMachines', parameters('virtualMachineScaleSets_mayabe_name'), '2'), '/networkInterfaces/NIC-maya-prod-sf-1/ipConfigurations/NIC-maya-prod-sf-1')]"
+                                },
+                                {
+                                    "id": "[concat(resourceId('Microsoft.Compute/virtualMachineScaleSets/virtualMachines', parameters('virtualMachineScaleSets_mayabe_name'), '3'), '/networkInterfaces/NIC-maya-prod-sf-1/ipConfigurations/NIC-maya-prod-sf-1')]"
+                                },
+                                {
+                                    "id": "[concat(resourceId('Microsoft.Compute/virtualMachineScaleSets/virtualMachines', parameters('virtualMachineScaleSets_mayabe_name'), '4'), '/networkInterfaces/NIC-maya-prod-sf-1/ipConfigurations/NIC-maya-prod-sf-1')]"
+                                }
+                            ],
+                            "backendLoadBalancerIPAddressValues": {}
+                        }
+                    }
+                ],
+                "loadBalancingRules": [],
+                "probes": [],
+                "inboundNatRules": [],
+                "inboundNatPools": []
+            }
+        },
+        {
+            "type": "Microsoft.Network/loadBalancers",
+            "apiVersion": "2020-03-01",
+            "name": "[parameters('loadBalancers_LB_maya_prod_sf_mayabe_name')]",
+            "location": "westeurope",
+            "dependsOn": [
+                "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_LBIP_maya_prod_sf_mayabe_name'))]",
+                "[resourceId('Microsoft.Compute/virtualMachineScaleSets/virtualMachines', parameters('virtualMachineScaleSets_mayabe_name'), '0')]",
+                "[resourceId('Microsoft.Compute/virtualMachineScaleSets/virtualMachines', parameters('virtualMachineScaleSets_mayabe_name'), '1')]",
+                "[resourceId('Microsoft.Compute/virtualMachineScaleSets/virtualMachines', parameters('virtualMachineScaleSets_mayabe_name'), '2')]",
+                "[resourceId('Microsoft.Compute/virtualMachineScaleSets/virtualMachines', parameters('virtualMachineScaleSets_mayabe_name'), '3')]",
+                "[resourceId('Microsoft.Compute/virtualMachineScaleSets/virtualMachines', parameters('virtualMachineScaleSets_mayabe_name'), '4')]"
+            ],
+            "tags": {
+                "resourceType": "Service Fabric",
+                "clusterName": "maya-prod-sf"
+            },
+            "sku": {
+                "name": "Basic"
+            },
+            "properties": {
+                "frontendIPConfigurations": [
+                    {
+                        "name": "LoadBalancerIPConfig",
+                        "properties": {
+                            "privateIPAllocationMethod": "Dynamic",
+                            "publicIPAddress": {
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_LBIP_maya_prod_sf_mayabe_name'))]"
+                            },
+                            "privateIPAddressVersion": "IPv4"
+                        }
+                    }
+                ],
+                "backendAddressPools": [
+                    {
+                        "name": "LoadBalancerBEAddressPool",
+                        "properties": {
+                            "provisioningState": "Succeeded",
+                            "backendIPConfigurations": [
+                                {
+                                    "id": "[concat(resourceId('Microsoft.Compute/virtualMachineScaleSets/virtualMachines', parameters('virtualMachineScaleSets_mayabe_name'), '0'), '/networkInterfaces/NIC-maya-prod-sf-1/ipConfigurations/NIC-maya-prod-sf-1')]"
+                                },
+                                {
+                                    "id": "[concat(resourceId('Microsoft.Compute/virtualMachineScaleSets/virtualMachines', parameters('virtualMachineScaleSets_mayabe_name'), '1'), '/networkInterfaces/NIC-maya-prod-sf-1/ipConfigurations/NIC-maya-prod-sf-1')]"
+                                },
+                                {
+                                    "id": "[concat(resourceId('Microsoft.Compute/virtualMachineScaleSets/virtualMachines', parameters('virtualMachineScaleSets_mayabe_name'), '2'), '/networkInterfaces/NIC-maya-prod-sf-1/ipConfigurations/NIC-maya-prod-sf-1')]"
+                                },
+                                {
+                                    "id": "[concat(resourceId('Microsoft.Compute/virtualMachineScaleSets/virtualMachines', parameters('virtualMachineScaleSets_mayabe_name'), '3'), '/networkInterfaces/NIC-maya-prod-sf-1/ipConfigurations/NIC-maya-prod-sf-1')]"
+                                },
+                                {
+                                    "id": "[concat(resourceId('Microsoft.Compute/virtualMachineScaleSets/virtualMachines', parameters('virtualMachineScaleSets_mayabe_name'), '4'), '/networkInterfaces/NIC-maya-prod-sf-1/ipConfigurations/NIC-maya-prod-sf-1')]"
+                                }
+                            ],
+                            "loadBalancingRules": [
+                                {
+                                    "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayabe_name')), '/loadBalancingRules/LBRule')]"
+                                }
+                            ],
+                            "backendLoadBalancerIPAddressValues": {}
+                        }
+                    }
+                ],
+                "loadBalancingRules": [
+                    {
+                        "name": "LBRule",
+                        "properties": {
+                            "frontendIPConfiguration": {
+                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayabe_name')), '/frontendIPConfigurations/LoadBalancerIPConfig')]"
+                            },
+                            "frontendPort": 19000,
+                            "backendPort": 19000,
+                            "enableFloatingIP": false,
+                            "idleTimeoutInMinutes": 5,
+                            "protocol": "Tcp",
+                            "enableTcpReset": false,
+                            "loadDistribution": "Default",
+                            "backendAddressPool": {
+                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayabe_name')), '/backendAddressPools/LoadBalancerBEAddressPool')]"
+                            },
+                            "probe": {
+                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayabe_name')), '/probes/FabricGatewayProbe')]"
+                            }
+                        }
+                    }
+                ],
+                "probes": [
+                    {
+                        "name": "FabricGatewayProbe",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "port": 19000,
+                            "intervalInSeconds": 5,
+                            "numberOfProbes": 2
+                        }
+                    },
+                    {
+                        "name": "FabricHttpGatewayProbe",
+                        "properties": {
+                            "protocol": "Tcp",
+                            "port": 19080,
+                            "intervalInSeconds": 5,
+                            "numberOfProbes": 2
+                        }
+                    }
+                ],
+                "inboundNatRules": [
+                    {
+                        "name": "LoadBalancerBEAddressNatPool.0",
+                        "properties": {
+                            "frontendIPConfiguration": {
+                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayabe_name')), '/frontendIPConfigurations/LoadBalancerIPConfig')]"
+                            },
+                            "frontendPort": 3389,
+                            "backendPort": 3389,
+                            "enableFloatingIP": false,
+                            "idleTimeoutInMinutes": 4,
+                            "protocol": "Tcp",
+                            "enableTcpReset": false
+                        }
+                    },
+                    {
+                        "name": "LoadBalancerBEAddressNatPool.1",
+                        "properties": {
+                            "frontendIPConfiguration": {
+                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayabe_name')), '/frontendIPConfigurations/LoadBalancerIPConfig')]"
+                            },
+                            "frontendPort": 3390,
+                            "backendPort": 3389,
+                            "enableFloatingIP": false,
+                            "idleTimeoutInMinutes": 4,
+                            "protocol": "Tcp",
+                            "enableTcpReset": false
+                        }
+                    },
+                    {
+                        "name": "LoadBalancerBEAddressNatPool.2",
+                        "properties": {
+                            "frontendIPConfiguration": {
+                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayabe_name')), '/frontendIPConfigurations/LoadBalancerIPConfig')]"
+                            },
+                            "frontendPort": 3391,
+                            "backendPort": 3389,
+                            "enableFloatingIP": false,
+                            "idleTimeoutInMinutes": 4,
+                            "protocol": "Tcp",
+                            "enableTcpReset": false
+                        }
+                    },
+                    {
+                        "name": "LoadBalancerBEAddressNatPool.3",
+                        "properties": {
+                            "frontendIPConfiguration": {
+                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayabe_name')), '/frontendIPConfigurations/LoadBalancerIPConfig')]"
+                            },
+                            "frontendPort": 3392,
+                            "backendPort": 3389,
+                            "enableFloatingIP": false,
+                            "idleTimeoutInMinutes": 4,
+                            "protocol": "Tcp",
+                            "enableTcpReset": false
+                        }
+                    },
+                    {
+                        "name": "LoadBalancerBEAddressNatPool.4",
+                        "properties": {
+                            "frontendIPConfiguration": {
+                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayabe_name')), '/frontendIPConfigurations/LoadBalancerIPConfig')]"
+                            },
+                            "frontendPort": 3393,
+                            "backendPort": 3389,
+                            "enableFloatingIP": false,
+                            "idleTimeoutInMinutes": 4,
+                            "protocol": "Tcp",
+                            "enableTcpReset": false
+                        }
+                    }
+                ],
+                "inboundNatPools": [
+                    {
+                        "name": "LoadBalancerBEAddressNatPool",
+                        "properties": {
+                            "frontendPortRangeStart": 3389,
+                            "frontendPortRangeEnd": 4500,
+                            "backendPort": 3389,
+                            "protocol": "Tcp",
+                            "idleTimeoutInMinutes": 4,
+                            "enableFloatingIP": false,
+                            "enableTcpReset": false,
+                            "frontendIPConfiguration": {
+                                "id": "[concat(resourceId('Microsoft.Network/loadBalancers', parameters('loadBalancers_LB_maya_prod_sf_mayabe_name')), '/frontendIPConfigurations/LoadBalancerIPConfig')]"
+                            }
+                        }
+                    }
+                ]
+            }
+        }
+    ]
+}

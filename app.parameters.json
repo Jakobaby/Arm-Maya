@@ -1,0 +1,114 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "actionGroups_Application_Insights_Smart_Detection_name": {
+            "value": null
+        },
+        "smartdetectoralertrules_failure_anomalies___aftercareservices_name": {
+            "value": null
+        },
+        "smartdetectoralertrules_failure_anomalies___careplatformservices_name": {
+            "value": null
+        },
+        "smartdetectoralertrules_failure_anomalies___nlpservices_nlpservice_name": {
+            "value": null
+        },
+        "smartdetectoralertrules_failure_anomalies___qmsservices_qmsservice_name": {
+            "value": null
+        },
+        "smartdetectoralertrules_failure_anomalies___accountservices_iamserver_name": {
+            "value": null
+        },
+        "smartdetectoralertrules_failure_anomalies___patientservices_patientchat_name": {
+            "value": null
+        },
+        "smartdetectoralertrules_failure_anomalies___managementservices_docportal_name": {
+            "value": null
+        },
+        "smartdetectoralertrules_failure_anomalies___chatservices_signalrhostservice_name": {
+            "value": null
+        },
+        "smartdetectoralertrules_failure_anomalies___managementservices_adminportalapp_name": {
+            "value": null
+        },
+        "smartdetectoralertrules_failure_anomalies___notificationhub_notificationservice_name": {
+            "value": null
+        },
+        "smartdetectoralertrules_failure_anomalies___botservices_botdispatcherhostservice_name": {
+            "value": null
+        },
+        "smartdetectoralertrules_failure_anomalies___nlpservices_nlpbotserviceactorservice_name": {
+            "value": null
+        },
+        "smartdetectoralertrules_failure_anomalies___qmsservices_qmsbotserviceactorservice_name": {
+            "value": null
+        },
+        "smartdetectoralertrules_failure_anomalies___notificationhub_notificationhostservice_name": {
+            "value": null
+        },
+        "smartdetectoralertrules_failure_anomalies___botservices_socialbotserviceactorservice_name": {
+            "value": null
+        },
+        "smartdetectoralertrules_failure_anomalies___botservices_profilebotserviceactorservice_name": {
+            "value": null
+        },
+        "smartdetectoralertrules_failure_anomalies___communicationservices_communicationservice_name": {
+            "value": null
+        },
+        "components_accountservices_iamserver_externalid": {
+            "value": null
+        },
+        "actiongroups_application_20insights_20smart_20detection_externalid": {
+            "value": null
+        },
+        "components_aftercareservices_externalid": {
+            "value": null
+        },
+        "components_botservices_botdispatcherhostservice_externalid": {
+            "value": null
+        },
+        "components_botservices_profilebotserviceactorservice_externalid": {
+            "value": null
+        },
+        "components_botservices_socialbotserviceactorservice_externalid": {
+            "value": null
+        },
+        "components_careplatformservices_externalid": {
+            "value": null
+        },
+        "components_chatservices_signalrhostservice_externalid": {
+            "value": null
+        },
+        "components_communicationservices_communicationservice_externalid": {
+            "value": null
+        },
+        "components_managementservices_adminportalapp_externalid": {
+            "value": null
+        },
+        "components_managementservices_docportal_externalid": {
+            "value": null
+        },
+        "components_nlpservices_nlpbotserviceactorservice_externalid": {
+            "value": null
+        },
+        "components_nlpservices_nlpservice_externalid": {
+            "value": null
+        },
+        "components_notificationhub_notificationhostservice_externalid": {
+            "value": null
+        },
+        "components_notificationhub_notificationservice_externalid": {
+            "value": null
+        },
+        "components_patientservices_patientchat_externalid": {
+            "value": null
+        },
+        "components_qmsservices_qmsbotserviceactorservice_externalid": {
+            "value": null
+        },
+        "components_qmsservices_qmsservice_externalid": {
+            "value": null
+        }
+    }
+}

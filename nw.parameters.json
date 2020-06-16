@@ -1,0 +1,21 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "virtualNetworks_maya_prod_vnet_name": {
+            "value":"maya-prod-vnet"
+        },
+        "applicationGateways_maya_prod_waf01_name": {
+            "value": "maya-prod-waf01"
+        },
+        "publicIPAddresses_maya_prod_waf01_ip_name": {
+            "value": "maya-prod-waf01-ip"
+        },
+        "networkSecurityGroups_maya_prod_hix_nsg_name": {
+            "value": "maya-prod-hix-nsg"
+        },
+        "networkSecurityGroups_maya_prod_waf_nsg_name": {
+            "value": "maya-prod-waf-nsg"
+        }
+    }
+}

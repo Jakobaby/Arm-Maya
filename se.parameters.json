@@ -1,0 +1,27 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "vulnerabilityAssessments_Default_storageContainerPath": {
+            "value": "SecureString"
+        },
+        "Redis_maya_prod_redis_name": {
+            "value": "maya-prod-redis"
+        },
+        "servers_maya_prod_sql01_name": {
+            "value": "maya-prod-sql01"
+        },
+        "vaults_maya_prod_kv_name": {
+            "value": "maya-prod-kv"
+        },
+        "namespaces_maya_prod_sb01_name": {
+            "value": "maya-prod-sb01"
+        },
+        "storageAccounts_mayaprodsesa_name": {
+            "value": "mayaprodsesa"
+        },
+        "virtualNetworks_maya_prod_vnet_externalid": {
+            "value": "/subscriptions/a400b5b3-0dea-4445-84d1-e6dba8b31ca9/resourceGroups/maya-prod-nw-rg/providers/Microsoft.Network/virtualNetworks/maya-prod-vnet"
+        }
+    }
+}
